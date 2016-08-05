@@ -37,6 +37,9 @@
             this.TransmitterProgressBar = new FlatUI.FlatProgressBar();
             this.FileReceiverTextBox = new FlatUI.FlatTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ChatSendButton = new FlatUI.FlatButton();
+            this.ChatText_TextBox = new FlatUI.FlatTextBox();
+            this.ChatTextBox = new FlatUI.FlatTextBox();
             this.flatGroupBox1 = new FlatUI.FlatGroupBox();
             this.ReceiverProgressBar = new FlatUI.FlatProgressBar();
             this.ReceiverTextBox = new FlatUI.FlatTextBox();
@@ -44,9 +47,6 @@
             this.flatLabel2 = new FlatUI.FlatLabel();
             this.flatClose1 = new FlatUI.FlatClose();
             this.flatMini1 = new FlatUI.FlatMini();
-            this.flatTextBox1 = new FlatUI.FlatTextBox();
-            this.flatTextBox2 = new FlatUI.FlatTextBox();
-            this.flatButton1 = new FlatUI.FlatButton();
             this.formSkin1.SuspendLayout();
             this.flatGroupBox2.SuspendLayout();
             this.flatTabControl1.SuspendLayout();
@@ -182,15 +182,60 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.tabPage2.Controls.Add(this.flatButton1);
-            this.tabPage2.Controls.Add(this.flatTextBox2);
-            this.tabPage2.Controls.Add(this.flatTextBox1);
+            this.tabPage2.Controls.Add(this.ChatSendButton);
+            this.tabPage2.Controls.Add(this.ChatText_TextBox);
+            this.tabPage2.Controls.Add(this.ChatTextBox);
             this.tabPage2.Location = new System.Drawing.Point(4, 44);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(585, 256);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Chat";
+            // 
+            // ChatSendButton
+            // 
+            this.ChatSendButton.BackColor = System.Drawing.Color.Transparent;
+            this.ChatSendButton.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(168)))), ((int)(((byte)(109)))));
+            this.ChatSendButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ChatSendButton.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.ChatSendButton.Location = new System.Drawing.Point(496, 183);
+            this.ChatSendButton.Name = "ChatSendButton";
+            this.ChatSendButton.Rounded = false;
+            this.ChatSendButton.Size = new System.Drawing.Size(83, 67);
+            this.ChatSendButton.TabIndex = 2;
+            this.ChatSendButton.Text = "Send";
+            this.ChatSendButton.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.ChatSendButton.Click += new System.EventHandler(this.ChatSendButton_Click);
+            // 
+            // ChatText_TextBox
+            // 
+            this.ChatText_TextBox.BackColor = System.Drawing.Color.Transparent;
+            this.ChatText_TextBox.FocusOnHover = false;
+            this.ChatText_TextBox.Location = new System.Drawing.Point(6, 183);
+            this.ChatText_TextBox.MaxLength = 32767;
+            this.ChatText_TextBox.Multiline = true;
+            this.ChatText_TextBox.Name = "ChatText_TextBox";
+            this.ChatText_TextBox.ReadOnly = false;
+            this.ChatText_TextBox.Size = new System.Drawing.Size(484, 67);
+            this.ChatText_TextBox.TabIndex = 1;
+            this.ChatText_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.ChatText_TextBox.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.ChatText_TextBox.UseSystemPasswordChar = false;
+            // 
+            // ChatTextBox
+            // 
+            this.ChatTextBox.BackColor = System.Drawing.Color.Transparent;
+            this.ChatTextBox.FocusOnHover = false;
+            this.ChatTextBox.Location = new System.Drawing.Point(6, 6);
+            this.ChatTextBox.MaxLength = 32767;
+            this.ChatTextBox.Multiline = true;
+            this.ChatTextBox.Name = "ChatTextBox";
+            this.ChatTextBox.ReadOnly = true;
+            this.ChatTextBox.Size = new System.Drawing.Size(573, 165);
+            this.ChatTextBox.TabIndex = 0;
+            this.ChatTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.ChatTextBox.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.ChatTextBox.UseSystemPasswordChar = false;
             // 
             // flatGroupBox1
             // 
@@ -293,52 +338,6 @@
             this.flatMini1.Text = "flatMini1";
             this.flatMini1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             // 
-            // flatTextBox1
-            // 
-            this.flatTextBox1.BackColor = System.Drawing.Color.Transparent;
-            this.flatTextBox1.FocusOnHover = false;
-            this.flatTextBox1.Location = new System.Drawing.Point(6, 6);
-            this.flatTextBox1.MaxLength = 32767;
-            this.flatTextBox1.Multiline = true;
-            this.flatTextBox1.Name = "flatTextBox1";
-            this.flatTextBox1.ReadOnly = true;
-            this.flatTextBox1.Size = new System.Drawing.Size(573, 165);
-            this.flatTextBox1.TabIndex = 0;
-            this.flatTextBox1.Text = "flatTextBox1";
-            this.flatTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.flatTextBox1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.flatTextBox1.UseSystemPasswordChar = false;
-            // 
-            // flatTextBox2
-            // 
-            this.flatTextBox2.BackColor = System.Drawing.Color.Transparent;
-            this.flatTextBox2.FocusOnHover = false;
-            this.flatTextBox2.Location = new System.Drawing.Point(6, 183);
-            this.flatTextBox2.MaxLength = 32767;
-            this.flatTextBox2.Multiline = true;
-            this.flatTextBox2.Name = "flatTextBox2";
-            this.flatTextBox2.ReadOnly = false;
-            this.flatTextBox2.Size = new System.Drawing.Size(484, 67);
-            this.flatTextBox2.TabIndex = 1;
-            this.flatTextBox2.Text = "flatTextBox2";
-            this.flatTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.flatTextBox2.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.flatTextBox2.UseSystemPasswordChar = false;
-            // 
-            // flatButton1
-            // 
-            this.flatButton1.BackColor = System.Drawing.Color.Transparent;
-            this.flatButton1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(168)))), ((int)(((byte)(109)))));
-            this.flatButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.flatButton1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.flatButton1.Location = new System.Drawing.Point(496, 183);
-            this.flatButton1.Name = "flatButton1";
-            this.flatButton1.Rounded = false;
-            this.flatButton1.Size = new System.Drawing.Size(83, 67);
-            this.flatButton1.TabIndex = 2;
-            this.flatButton1.Text = "Send";
-            this.flatButton1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -379,8 +378,8 @@
         private FlatUI.FlatButton SendFileButton;
         private FlatUI.FlatProgressBar TransmitterProgressBar;
         private FlatUI.FlatTextBox FileReceiverTextBox;
-        private FlatUI.FlatButton flatButton1;
-        private FlatUI.FlatTextBox flatTextBox2;
-        private FlatUI.FlatTextBox flatTextBox1;
+        private FlatUI.FlatButton ChatSendButton;
+        private FlatUI.FlatTextBox ChatText_TextBox;
+        private FlatUI.FlatTextBox ChatTextBox;
     }
 }
