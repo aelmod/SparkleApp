@@ -18,15 +18,7 @@ namespace p2p_client
     {
         //p2p
         const int PORT = 1723;
-
-        //chat
-        delegate void AddMessage(string message);
-        const int charport = 54545;
-        const string broadcastAddress = "127.0.0.1";
-        string userName = broadcastAddress;
-        UdpClient receivingClient;
-        UdpClient sendingClient;
-        Thread receivingThread;
+        static object locker = new object();
 
         public MainWindow()
         {
@@ -41,11 +33,6 @@ namespace p2p_client
             IPAddress addrs = IPAddress.Parse(new WebClient().DownloadString("https://api.ipify.org/"));
             YourIPTextBox.Text = addrs.ToString();
 
-            //chat
-            ChatSendButton.Click += ChatSendButton_Click;
-            InitializeSender();
-            InitializeReceiver();
-
         }
 
         private void resetControls()
@@ -55,7 +42,7 @@ namespace p2p_client
             TransmitterProgressBar.Value = 0;
             //TransmitterProgressBar.Style = ProgressBarStyle.Continuous;
 
-            ReceiverTextBox.Text = "Waiting for connection...";
+            ReceiverTextBox.Text = "Waiting...";
             ReceiverProgressBar.Value = 0;
             //progressBar1.Style = ProgressBarStyle.Continuous;
         }
@@ -255,64 +242,39 @@ namespace p2p_client
             
         }
 
-        //chat
-        private void InitializeSender()
+        //chat_open
+
+        //public static void chat_open()
+        //{
+        //    const string AppMutexName = "chat";
+        //    using (Mutex mutex = new Mutex(false, AppMutexName))
+        //    {
+        //        bool Running = !mutex.WaitOne(0, false);
+        //        if (!Running)
+        //        {
+        //                lock (locker)
+        //                Application.Run(new chat());
+        //        }
+        //        else
+        //        {
+        //            // App already launched.
+        //            MessageBox.Show("chat is alredy launched!");
+        //        }
+        //    }
+        //}
+
+        public static void chat_open()
         {
-            //int ipAddress = BitConverter.ToInt32(IPAddress.Parse(EnterIPTextBox.Text).GetAddressBytes(), 0); /*преобразовать ІР в інт*/
-            //string broadcastAddress = new IPAddress(BitConverter.GetBytes(ipAddress)).ToString();
-            sendingClient = new UdpClient(broadcastAddress, charport);
-            //IPAddress broadcastAddress;
-            //IPAddress.TryParse(textBox1.Text, out broadcastAddress);
-            //try
-            //{
-            //    sendingClient.Connect(broadcastAddress, port);
-            //}
-            //catch
-            //{
-            //}
-            sendingClient.EnableBroadcast = true;
+            lock (locker)
+                Application.Run(new chat());
         }
 
-        private void InitializeReceiver()
+
+        private void flatButton1_Click(object sender, EventArgs e)
         {
-            receivingClient = new UdpClient(charport);
-
-            ThreadStart start = Receiver;
-            receivingThread = new Thread(start);
-            receivingThread.IsBackground = true;
-            receivingThread.Start();
-        }
-
-        private void ChatSendButton_Click(object sender, EventArgs e)
-        {
-            ChatText_TextBox.Text = ChatText_TextBox.Text.TrimEnd();
-
-            if (!string.IsNullOrEmpty(ChatText_TextBox.Text))
-            {
-                string toSend = userName + ":" + Environment.NewLine + ChatText_TextBox.Text;
-                byte[] data = Encoding.ASCII.GetBytes(toSend);
-                sendingClient.Send(data, data.Length);
-                ChatText_TextBox.Text = "";
-            }
-
-            ChatText_TextBox.Focus();
-        }
-        private void Receiver()
-        {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, charport);
-            AddMessage messageDelegate = MessageReceived;
-
-            while (true)
-            {
-                byte[] data = receivingClient.Receive(ref endPoint);
-                string message = Encoding.ASCII.GetString(data);
-                Invoke(messageDelegate, message);
-            }
-        }
-
-        private void MessageReceived(string message)
-        {
-            ChatTextBox.Text += message + Environment.NewLine + Environment.NewLine;
+            //запуск чата
+            Thread t = new Thread(chat_open);
+            t.Start();
         }
 
     }
