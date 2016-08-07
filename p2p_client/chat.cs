@@ -1,30 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace p2p_client
 {
     public partial class chat : Form
     {
+        private const int charport = 54545;
+        private const string broadcastAddress = "127.0.0.1";
 
-        //chat
-        delegate void AddMessage(string message);
-        const int charport = 54545;
-        const string broadcastAddress = "127.0.0.1";
-        string userName = broadcastAddress;
-        UdpClient receivingClient;
-        UdpClient sendingClient;
-        Thread receivingThread;
+        private readonly MainWindow otherForm = new MainWindow();
+        private UdpClient receivingClient;
+        private Thread receivingThread;
+        private UdpClient sendingClient;
+        private readonly string userName = broadcastAddress;
 
         public chat()
         {
@@ -36,15 +28,13 @@ namespace p2p_client
 
             //enter send
             //ChatTextBox.KeyDown += ChatTextBox_KeyDown;
-
         }
 
-        private MainWindow otherForm = new MainWindow();
         private void GetOtherFormTextBox()
         {
             try
             {
-                IPAddress addrs = IPAddress.Parse(otherForm.EnterIPTextBox.Text);
+                var addrs = IPAddress.Parse(otherForm.EnterIPTextBox.Text);
                 textBox1.Text = addrs.ToString();
             }
             catch (Exception)
@@ -53,6 +43,7 @@ namespace p2p_client
             }
             //string y = otherForm.EnterIPTextBox.Text;
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             GetOtherFormTextBox();
@@ -97,49 +88,53 @@ namespace p2p_client
         //}
         private void CheckEnter(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)13)
+            if (e.KeyChar == (char) 13)
             {
                 ChatSendButton_Click(sender, e);
             }
             ChatTextBox.Text = ChatTextBox.Text.TrimEnd();
         }
+
         private void ChatSendButton_Click(object sender, EventArgs e)
         {
             ChatTextBox.Text = ChatTextBox.Text.TrimEnd();
 
             if (!string.IsNullOrEmpty(ChatTextBox.Text))
             {
-                string toSend = userName + ":" + Environment.NewLine + ChatTextBox.Text;
-                byte[] data = Encoding.UTF8.GetBytes(toSend);
+                var toSend = userName + ":" + Environment.NewLine + ChatTextBox.Text;
+                var data = Encoding.UTF8.GetBytes(toSend);
                 sendingClient.Send(data, data.Length);
                 ChatTextBox.Text = "";
             }
 
             ChatTextBox.Focus();
         }
+
         private void Receiver()
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, charport);
+            var endPoint = new IPEndPoint(IPAddress.Any, charport);
             AddMessage messageDelegate = MessageReceived;
 
             while (true)
             {
-                byte[] data = receivingClient.Receive(ref endPoint);
-                string message = Encoding.UTF8.GetString(data);
+                var data = receivingClient.Receive(ref endPoint);
+                var message = Encoding.UTF8.GetString(data);
                 Invoke(messageDelegate, message);
             }
         }
 
         private void MessageReceived(string message)
         {
-            Receiver_TextBox.Text += message + /*Environment.NewLine + */Environment.NewLine;
+            Receiver_TextBox.Text += message + /*Environment.NewLine + */ Environment.NewLine;
         }
 
         private void Receiver_TextBox_TextChanged(object sender, EventArgs e)
         {
             Receiver_TextBox.SelectionStart = Receiver_TextBox.Text.Length;
             Receiver_TextBox.ScrollToCaret();
-
         }
+
+        //chat
+        private delegate void AddMessage(string message);
     }
 }

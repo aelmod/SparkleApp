@@ -7,218 +7,212 @@ using System.Windows.Forms;
 
 namespace FlatUI
 {
-	[DefaultEvent("CheckedChanged")]
-	public class FlatCheckBox : Control
-	{
-		private int W;
-		private int H;
-		private MouseState State = MouseState.None;
-		private _Options O;
-		private bool _Checked;
+    [DefaultEvent("CheckedChanged")]
+    public class FlatCheckBox : Control
+    {
+        public delegate void CheckedChangedEventHandler(object sender);
 
-		protected override void OnTextChanged(System.EventArgs e)
-		{
-			base.OnTextChanged(e);
-			Invalidate();
-		}
+        [Flags]
+        public enum _Options
+        {
+            Style1,
+            Style2
+        }
 
-		public bool Checked
-		{
-			get { return _Checked; }
-			set
-			{
-				_Checked = value;
-				Invalidate();
-			}
-		}
+        private bool _Checked;
+        private readonly Color _TextColor = Color.FromArgb(243, 243, 243);
+        private int H;
+        private MouseState State = MouseState.None;
+        private int W;
 
-		public event CheckedChangedEventHandler CheckedChanged;
-		public delegate void CheckedChangedEventHandler(object sender);
-		protected override void OnClick(System.EventArgs e)
-		{
-			_Checked = !_Checked;
-			if (CheckedChanged != null)
-			{
-				CheckedChanged(this);
-			}
-			base.OnClick(e);
-		}
+        public FlatCheckBox()
+        {
+            SetStyle(
+                ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw |
+                ControlStyles.OptimizedDoubleBuffer, true);
+            DoubleBuffered = true;
+            BackColor = Color.FromArgb(60, 70, 73);
+            Cursor = Cursors.Hand;
+            Font = new Font("Segoe UI", 10);
+            Size = new Size(112, 22);
+        }
 
-		[Flags()]
-		public enum _Options
-		{
-			Style1,
-			Style2
-		}
+        public bool Checked
+        {
+            get { return _Checked; }
+            set
+            {
+                _Checked = value;
+                Invalidate();
+            }
+        }
 
-		[Category("Options")]
-		public _Options Options
-		{
-			get { return O; }
-			set { O = value; }
-		}
+        [Category("Options")]
+        public _Options Options { get; set; }
 
-		protected override void OnResize(EventArgs e)
-		{
-			base.OnResize(e);
-			Height = 22;
-		}
+        [Category("Colors")]
+        public Color BaseColor { get; set; } = Color.FromArgb(45, 47, 49);
 
-		[Category("Colors")]
-		public Color BaseColor
-		{
-			get { return _BaseColor; }
-			set { _BaseColor = value; }
-		}
+        [Category("Colors")]
+        public Color BorderColor { get; set; } = Helpers.FlatColor;
 
-		[Category("Colors")]
-		public Color BorderColor
-		{
-			get { return _BorderColor; }
-			set { _BorderColor = value; }
-		}
+        protected override void OnTextChanged(EventArgs e)
+        {
+            base.OnTextChanged(e);
+            Invalidate();
+        }
 
-		protected override void OnMouseDown(MouseEventArgs e)
-		{
-			base.OnMouseDown(e);
-			State = MouseState.Down;
-			Invalidate();
-		}
+        public event CheckedChangedEventHandler CheckedChanged;
 
-		protected override void OnMouseUp(MouseEventArgs e)
-		{
-			base.OnMouseUp(e);
-			State = MouseState.Over;
-			Invalidate();
-		}
+        protected override void OnClick(EventArgs e)
+        {
+            _Checked = !_Checked;
+            if (CheckedChanged != null)
+            {
+                CheckedChanged(this);
+            }
+            base.OnClick(e);
+        }
 
-		protected override void OnMouseEnter(EventArgs e)
-		{
-			base.OnMouseEnter(e);
-			State = MouseState.Over;
-			Invalidate();
-		}
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            Height = 22;
+        }
 
-		protected override void OnMouseLeave(EventArgs e)
-		{
-			base.OnMouseLeave(e);
-			State = MouseState.None;
-			Invalidate();
-		}
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            State = MouseState.Down;
+            Invalidate();
+        }
 
-		private Color _BaseColor = Color.FromArgb(45, 47, 49);
-		private Color _TextColor = Color.FromArgb(243, 243, 243);
-		private Color _BorderColor = Helpers.FlatColor;
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            State = MouseState.Over;
+            Invalidate();
+        }
 
-		public FlatCheckBox()
-		{
-			SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
-			DoubleBuffered = true;
-			BackColor = Color.FromArgb(60, 70, 73);
-			Cursor = Cursors.Hand;
-			Font = new Font("Segoe UI", 10);
-			Size = new Size(112, 22);
-		}
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
+            State = MouseState.Over;
+            Invalidate();
+        }
 
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			this.UpdateColors();
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            State = MouseState.None;
+            Invalidate();
+        }
 
-			Bitmap B = new Bitmap(Width, Height);
-			Graphics G = Graphics.FromImage(B);
-			W = Width - 1;
-			H = Height - 1;
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            UpdateColors();
 
-			Rectangle Base = new Rectangle(0, 2, Height - 5, Height - 5);
+            var B = new Bitmap(Width, Height);
+            var G = Graphics.FromImage(B);
+            W = Width - 1;
+            H = Height - 1;
 
-			var _with11 = G;
-			_with11.SmoothingMode = SmoothingMode.HighQuality;
-			_with11.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-			_with11.Clear(BackColor);
-			switch (O)
-			{
-				case _Options.Style1:
-					//-- Style 1
-					//-- Base
-					_with11.FillRectangle(new SolidBrush(_BaseColor), Base);
+            var Base = new Rectangle(0, 2, Height - 5, Height - 5);
 
-					switch (State)
-					{
-						case MouseState.Over:
-							//-- Base
-							_with11.DrawRectangle(new Pen(_BorderColor), Base);
-							break;
-						case MouseState.Down:
-							//-- Base
-							_with11.DrawRectangle(new Pen(_BorderColor), Base);
-							break;
-					}
+            var _with11 = G;
+            _with11.SmoothingMode = SmoothingMode.HighQuality;
+            _with11.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+            _with11.Clear(BackColor);
+            switch (Options)
+            {
+                case _Options.Style1:
+                    //-- Style 1
+                    //-- Base
+                    _with11.FillRectangle(new SolidBrush(BaseColor), Base);
 
-					//-- If Checked
-					if (Checked)
-					{
-						_with11.DrawString("ü", new Font("Wingdings", 18), new SolidBrush(_BorderColor), new Rectangle(5, 7, H - 9, H - 9), Helpers.CenterSF);
-					}
+                    switch (State)
+                    {
+                        case MouseState.Over:
+                            //-- Base
+                            _with11.DrawRectangle(new Pen(BorderColor), Base);
+                            break;
+                        case MouseState.Down:
+                            //-- Base
+                            _with11.DrawRectangle(new Pen(BorderColor), Base);
+                            break;
+                    }
 
-					//-- If Enabled
-					if (this.Enabled == false)
-					{
-						_with11.FillRectangle(new SolidBrush(Color.FromArgb(54, 58, 61)), Base);
-						_with11.DrawString(Text, Font, new SolidBrush(Color.FromArgb(140, 142, 143)), new Rectangle(20, 2, W, H), Helpers.NearSF);
-					}
+                    //-- If Checked
+                    if (Checked)
+                    {
+                        _with11.DrawString("ü", new Font("Wingdings", 18), new SolidBrush(BorderColor),
+                            new Rectangle(5, 7, H - 9, H - 9), Helpers.CenterSF);
+                    }
 
-					//-- Text
-					_with11.DrawString(Text, Font, new SolidBrush(_TextColor), new Rectangle(20, 2, W, H), Helpers.NearSF);
-					break;
-				case _Options.Style2:
-					//-- Style 2
-					//-- Base
-					_with11.FillRectangle(new SolidBrush(_BaseColor), Base);
+                    //-- If Enabled
+                    if (Enabled == false)
+                    {
+                        _with11.FillRectangle(new SolidBrush(Color.FromArgb(54, 58, 61)), Base);
+                        _with11.DrawString(Text, Font, new SolidBrush(Color.FromArgb(140, 142, 143)),
+                            new Rectangle(20, 2, W, H), Helpers.NearSF);
+                    }
 
-					switch (State)
-					{
-						case MouseState.Over:
-							//-- Base
-							_with11.DrawRectangle(new Pen(_BorderColor), Base);
-							_with11.FillRectangle(new SolidBrush(Color.FromArgb(118, 213, 170)), Base);
-							break;
-						case MouseState.Down:
-							//-- Base
-							_with11.DrawRectangle(new Pen(_BorderColor), Base);
-							_with11.FillRectangle(new SolidBrush(Color.FromArgb(118, 213, 170)), Base);
-							break;
-					}
+                    //-- Text
+                    _with11.DrawString(Text, Font, new SolidBrush(_TextColor), new Rectangle(20, 2, W, H),
+                        Helpers.NearSF);
+                    break;
+                case _Options.Style2:
+                    //-- Style 2
+                    //-- Base
+                    _with11.FillRectangle(new SolidBrush(BaseColor), Base);
 
-					//-- If Checked
-					if (Checked)
-					{
-						_with11.DrawString("ü", new Font("Wingdings", 18), new SolidBrush(_BorderColor), new Rectangle(5, 7, H - 9, H - 9), Helpers.CenterSF);
-					}
+                    switch (State)
+                    {
+                        case MouseState.Over:
+                            //-- Base
+                            _with11.DrawRectangle(new Pen(BorderColor), Base);
+                            _with11.FillRectangle(new SolidBrush(Color.FromArgb(118, 213, 170)), Base);
+                            break;
+                        case MouseState.Down:
+                            //-- Base
+                            _with11.DrawRectangle(new Pen(BorderColor), Base);
+                            _with11.FillRectangle(new SolidBrush(Color.FromArgb(118, 213, 170)), Base);
+                            break;
+                    }
 
-					//-- If Enabled
-					if (this.Enabled == false)
-					{
-						_with11.FillRectangle(new SolidBrush(Color.FromArgb(54, 58, 61)), Base);
-						_with11.DrawString(Text, Font, new SolidBrush(Color.FromArgb(48, 119, 91)), new Rectangle(20, 2, W, H), Helpers.NearSF);
-					}
+                    //-- If Checked
+                    if (Checked)
+                    {
+                        _with11.DrawString("ü", new Font("Wingdings", 18), new SolidBrush(BorderColor),
+                            new Rectangle(5, 7, H - 9, H - 9), Helpers.CenterSF);
+                    }
 
-					//-- Text
-					_with11.DrawString(Text, Font, new SolidBrush(_TextColor), new Rectangle(20, 2, W, H), Helpers.NearSF);
-					break;
-			}
+                    //-- If Enabled
+                    if (Enabled == false)
+                    {
+                        _with11.FillRectangle(new SolidBrush(Color.FromArgb(54, 58, 61)), Base);
+                        _with11.DrawString(Text, Font, new SolidBrush(Color.FromArgb(48, 119, 91)),
+                            new Rectangle(20, 2, W, H), Helpers.NearSF);
+                    }
 
-			base.OnPaint(e);
-			G.Dispose();
-			e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-			e.Graphics.DrawImageUnscaled(B, 0, 0);
-			B.Dispose();
-		}
+                    //-- Text
+                    _with11.DrawString(Text, Font, new SolidBrush(_TextColor), new Rectangle(20, 2, W, H),
+                        Helpers.NearSF);
+                    break;
+            }
 
-		private void UpdateColors()
-		{
-			FlatColors colors = Helpers.GetColors(this);
+            base.OnPaint(e);
+            G.Dispose();
+            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            e.Graphics.DrawImageUnscaled(B, 0, 0);
+            B.Dispose();
+        }
 
-			_BorderColor = colors.Flat;
-		}
-	}
+        private void UpdateColors()
+        {
+            var colors = Helpers.GetColors(this);
+
+            BorderColor = colors.Flat;
+        }
+    }
 }

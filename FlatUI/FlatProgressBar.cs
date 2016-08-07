@@ -7,36 +7,44 @@ using System.Windows.Forms;
 
 namespace FlatUI
 {
-	public class FlatProgressBar : Control
-	{
-		private int W;
-		private int H;
-		private int _Value = 0;
-		private int _Maximum = 100;
-		private bool _Pattern = true;
-		private bool _ShowBalloon = true;
-		private bool _PercentSign = false;
+    public class FlatProgressBar : Control
+    {
+        private readonly Color _BaseColor = Color.FromArgb(45, 47, 49);
+        private int _Maximum = 100;
+        private int _Value;
+        private int H;
+        private int W;
 
-		[Category("Control")]
-		public int Maximum
-		{
-			get { return _Maximum; }
-			set
-			{
-				if (value < _Value)
-					_Value = value;
-				_Maximum = value;
-				Invalidate();
-			}
-		}
+        public FlatProgressBar()
+        {
+            SetStyle(
+                ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw |
+                ControlStyles.OptimizedDoubleBuffer, true);
+            DoubleBuffered = true;
+            BackColor = Color.FromArgb(60, 70, 73);
+            Height = 42;
+        }
 
-		[Category("Control")]
-		public int Value
-		{
-			get
-			{
-				return _Value;
-				/*
+        [Category("Control")]
+        public int Maximum
+        {
+            get { return _Maximum; }
+            set
+            {
+                if (value < _Value)
+                    _Value = value;
+                _Maximum = value;
+                Invalidate();
+            }
+        }
+
+        [Category("Control")]
+        public int Value
+        {
+            get
+            {
+                return _Value;
+                /*
 				switch (_Value)
 				{
 					case 0:
@@ -49,167 +57,136 @@ namespace FlatUI
 						break;
 				}
 				*/
-			}
-			set
-			{
-				if (value > _Maximum)
-				{
-					value = _Maximum;
-					Invalidate();
-				}
+            }
+            set
+            {
+                if (value > _Maximum)
+                {
+                    value = _Maximum;
+                    Invalidate();
+                }
 
-				_Value = value;
-				Invalidate();
-			}
-		}
+                _Value = value;
+                Invalidate();
+            }
+        }
 
-		public bool Pattern
-		{
-			get { return _Pattern; }
-			set { _Pattern = value; }
-		}
+        public bool Pattern { get; set; } = true;
 
-		public bool ShowBalloon
-		{
-			get { return _ShowBalloon; }
-			set { _ShowBalloon = value; }
-		}
+        public bool ShowBalloon { get; set; } = true;
 
-		public bool PercentSign
-		{
-			get { return _PercentSign; }
-			set { _PercentSign = value; }
-		}
+        public bool PercentSign { get; set; } = false;
 
-		[Category("Colors")]
-		public Color ProgressColor
-		{
-			get { return _ProgressColor; }
-			set { _ProgressColor = value; }
-		}
+        [Category("Colors")]
+        public Color ProgressColor { get; set; } = Helpers.FlatColor;
 
-		[Category("Colors")]
-		public Color DarkerProgress
-		{
-			get { return _DarkerProgress; }
-			set { _DarkerProgress = value; }
-		}
+        [Category("Colors")]
+        public Color DarkerProgress { get; set; } = Color.FromArgb(23, 148, 92);
 
-		protected override void OnResize(EventArgs e)
-		{
-			base.OnResize(e);
-			Height = 42;
-		}
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            Height = 42;
+        }
 
-		protected override void CreateHandle()
-		{
-			base.CreateHandle();
-			Height = 42;
-		}
+        protected override void CreateHandle()
+        {
+            base.CreateHandle();
+            Height = 42;
+        }
 
-		public void Increment(int Amount)
-		{
-			Value += Amount;
-		}
+        public void Increment(int Amount)
+        {
+            Value += Amount;
+        }
 
-		private Color _BaseColor = Color.FromArgb(45, 47, 49);
-		private Color _ProgressColor = Helpers.FlatColor;
-		private Color _DarkerProgress = Color.FromArgb(23, 148, 92);
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            UpdateColors();
 
-		public FlatProgressBar()
-		{
-			SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
-			DoubleBuffered = true;
-			BackColor = Color.FromArgb(60, 70, 73);
-			Height = 42;
-		}
+            var B = new Bitmap(Width, Height);
+            var G = Graphics.FromImage(B);
+            W = Width - 1;
+            H = Height - 1;
 
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			this.UpdateColors();
+            var Base = new Rectangle(0, 24, W, H);
+            var GP = new GraphicsPath();
+            var GP2 = new GraphicsPath();
+            var GP3 = new GraphicsPath();
 
-			Bitmap B = new Bitmap(Width, Height);
-			Graphics G = Graphics.FromImage(B);
-			W = Width - 1;
-			H = Height - 1;
+            var _with15 = G;
+            _with15.SmoothingMode = SmoothingMode.HighQuality;
+            _with15.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            _with15.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+            _with15.Clear(BackColor);
 
-			Rectangle Base = new Rectangle(0, 24, W, H);
-			GraphicsPath GP = new GraphicsPath();
-			GraphicsPath GP2 = new GraphicsPath();
-			GraphicsPath GP3 = new GraphicsPath();
+            //-- Progress Value
+            //int iValue = Convert.ToInt32(((float)_Value) / ((float)(_Maximum * Width)));
+            var percent = _Value/(float) _Maximum;
+            var iValue = (int) (percent*Width);
 
-			var _with15 = G;
-			_with15.SmoothingMode = SmoothingMode.HighQuality;
-			_with15.PixelOffsetMode = PixelOffsetMode.HighQuality;
-			_with15.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-			_with15.Clear(BackColor);
+            switch (Value)
+            {
+                case 0:
+                    //-- Base
+                    _with15.FillRectangle(new SolidBrush(_BaseColor), Base);
+                    //--Progress
+                    _with15.FillRectangle(new SolidBrush(ProgressColor), new Rectangle(0, 24, iValue - 1, H - 1));
+                    break;
+                case 100:
+                    //-- Base
+                    _with15.FillRectangle(new SolidBrush(_BaseColor), Base);
+                    //--Progress
+                    _with15.FillRectangle(new SolidBrush(ProgressColor), new Rectangle(0, 24, iValue - 1, H - 1));
+                    break;
+                default:
+                    //-- Base
+                    _with15.FillRectangle(new SolidBrush(_BaseColor), Base);
 
-			//-- Progress Value
-			//int iValue = Convert.ToInt32(((float)_Value) / ((float)(_Maximum * Width)));
-			float percent = ((float)_Value) / ((float)_Maximum);
-			int iValue = (int)(percent * ((float)Width));
+                    //--Progress
+                    GP.AddRectangle(new Rectangle(0, 24, iValue - 1, H - 1));
+                    _with15.FillPath(new SolidBrush(ProgressColor), GP);
 
-			switch (Value)
-			{
-				case 0:
-					//-- Base
-					_with15.FillRectangle(new SolidBrush(_BaseColor), Base);
-					//--Progress
-					_with15.FillRectangle(new SolidBrush(_ProgressColor), new Rectangle(0, 24, iValue - 1, H - 1));
-					break;
-				case 100:
-					//-- Base
-					_with15.FillRectangle(new SolidBrush(_BaseColor), Base);
-					//--Progress
-					_with15.FillRectangle(new SolidBrush(_ProgressColor), new Rectangle(0, 24, iValue - 1, H - 1));
-					break;
-				default:
-					//-- Base
-					_with15.FillRectangle(new SolidBrush(_BaseColor), Base);
+                    if (Pattern)
+                    {
+                        //-- Hatch Brush
+                        var HB = new HatchBrush(HatchStyle.Plaid, DarkerProgress, ProgressColor);
+                        _with15.FillRectangle(HB, new Rectangle(0, 24, iValue - 1, H - 1));
+                    }
 
-					//--Progress
-					GP.AddRectangle(new Rectangle(0, 24, iValue - 1, H - 1));
-					_with15.FillPath(new SolidBrush(_ProgressColor), GP);
+                    if (ShowBalloon)
+                    {
+                        //-- Balloon
+                        var Balloon = new Rectangle(iValue - 18, 0, 34, 16);
+                        GP2 = Helpers.RoundRec(Balloon, 4);
+                        _with15.FillPath(new SolidBrush(_BaseColor), GP2);
 
-					if (_Pattern)
-					{
-						//-- Hatch Brush
-						HatchBrush HB = new HatchBrush(HatchStyle.Plaid, _DarkerProgress, _ProgressColor);
-						_with15.FillRectangle(HB, new Rectangle(0, 24, iValue - 1, H - 1));
-					}
+                        //-- Arrow
+                        GP3 = Helpers.DrawArrow(iValue - 9, 16, true);
+                        _with15.FillPath(new SolidBrush(_BaseColor), GP3);
 
-					if (_ShowBalloon)
-					{
-						//-- Balloon
-						Rectangle Balloon = new Rectangle(iValue - 18, 0, 34, 16);
-						GP2 = Helpers.RoundRec(Balloon, 4);
-						_with15.FillPath(new SolidBrush(_BaseColor), GP2);
+                        //-- Value > You can add "%" > value & "%"
+                        var text = PercentSign ? Value + "%" : Value.ToString();
+                        var wOffset = PercentSign ? iValue - 15 : iValue - 11;
+                        _with15.DrawString(text, new Font("Segoe UI", 10), new SolidBrush(ProgressColor),
+                            new Rectangle(wOffset, -2, W, H), Helpers.NearSF);
+                    }
 
-						//-- Arrow
-						GP3 = Helpers.DrawArrow(iValue - 9, 16, true);
-						_with15.FillPath(new SolidBrush(_BaseColor), GP3);
+                    break;
+            }
 
-						//-- Value > You can add "%" > value & "%"
-						string text = (_PercentSign ? Value.ToString() + "%" : Value.ToString());
-						int wOffset = (_PercentSign ? iValue - 15 : iValue - 11);
-						_with15.DrawString(text, new Font("Segoe UI", 10), new SolidBrush(_ProgressColor), new Rectangle(wOffset, -2, W, H), Helpers.NearSF);
-					}
+            base.OnPaint(e);
+            G.Dispose();
+            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            e.Graphics.DrawImageUnscaled(B, 0, 0);
+            B.Dispose();
+        }
 
-					break;
-			}
+        private void UpdateColors()
+        {
+            var colors = Helpers.GetColors(this);
 
-			base.OnPaint(e);
-			G.Dispose();
-			e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-			e.Graphics.DrawImageUnscaled(B, 0, 0);
-			B.Dispose();
-		}
-
-		private void UpdateColors()
-		{
-			FlatColors colors = Helpers.GetColors(this);
-
-			_ProgressColor = colors.Flat;
-		}
-	}
+            ProgressColor = colors.Flat;
+        }
+    }
 }

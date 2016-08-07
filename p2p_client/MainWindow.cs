@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace p2p_client
@@ -17,8 +11,8 @@ namespace p2p_client
     public partial class MainWindow : Form
     {
         //p2p
-        const int PORT = 1723;
-        static object locker = new object();
+        private const int PORT = 1723;
+        private static readonly object locker = new object();
 
         public MainWindow()
         {
@@ -30,9 +24,8 @@ namespace p2p_client
             FileReceiverTextBox.Click += FileReceiverTextBox_Click;
 
             //ip
-            IPAddress addrs = IPAddress.Parse(new WebClient().DownloadString("https://api.ipify.org/"));
+            var addrs = IPAddress.Parse(new WebClient().DownloadString("https://api.ipify.org/"));
             YourIPTextBox.Text = addrs.ToString();
-
         }
 
         private void resetControls()
@@ -59,16 +52,17 @@ namespace p2p_client
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop) && e.Effect == DragDropEffects.Move)
             {
-                string[] objects = (string[])e.Data.GetData(DataFormats.FileDrop);
+                var objects = (string[]) e.Data.GetData(DataFormats.FileDrop);
                 // В objects хранятся пути к папкам и файлам
                 FileReceiverTextBox.Text = null;
-                for (int i = 0; i < objects.Length; i++)
+                for (var i = 0; i < objects.Length; i++)
                     FileReceiverTextBox.Text += objects[i];
             }
         }
+
         private void FileReceiverTextBox_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            var ofd = new OpenFileDialog();
             ofd.CheckFileExists = true;
             ofd.CheckPathExists = true;
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -115,7 +109,7 @@ namespace p2p_client
 
             // Connecting
             SendFileButton.Text = "Connecting...";
-            TcpClient client = new TcpClient();
+            var client = new TcpClient();
             try
             {
                 await client.ConnectAsync(address, PORT);
@@ -126,14 +120,14 @@ namespace p2p_client
                 resetControls();
                 return;
             }
-            NetworkStream ns = client.GetStream();
+            var ns = client.GetStream();
 
             // Send file info
             SendFileButton.Text = "Sending file info...";
             {
-                byte[] fileName = ASCIIEncoding.ASCII.GetBytes(file.Name);
-                byte[] fileNameLength = BitConverter.GetBytes(fileName.Length);
-                byte[] fileLength = BitConverter.GetBytes(file.Length);
+                var fileName = Encoding.ASCII.GetBytes(file.Name);
+                var fileNameLength = BitConverter.GetBytes(fileName.Length);
+                var fileLength = BitConverter.GetBytes(file.Length);
                 await ns.WriteAsync(fileLength, 0, fileLength.Length);
                 await ns.WriteAsync(fileNameLength, 0, fileNameLength.Length);
                 await ns.WriteAsync(fileName, 0, fileName.Length);
@@ -142,7 +136,7 @@ namespace p2p_client
             // провєрка прав
             SendFileButton.Text = "Getting permission...";
             {
-                byte[] permission = new byte[1];
+                var permission = new byte[1];
                 await ns.ReadAsync(permission, 0, 1);
                 if (permission[0] != 1)
                 {
@@ -156,13 +150,13 @@ namespace p2p_client
             SendFileButton.Text = "Sending...";
             //progressBar2.Style = ProgressBarStyle.Continuous;
             int read;
-            int totalWritten = 0;
-            byte[] buffer = new byte[32 * 1024]; // 32k chunks
+            var totalWritten = 0;
+            var buffer = new byte[32*1024]; // 32k chunks
             while ((read = await fileStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
             {
                 await ns.WriteAsync(buffer, 0, read);
                 totalWritten += read;
-                TransmitterProgressBar.Value = (int)((100d * totalWritten) / file.Length);
+                TransmitterProgressBar.Value = (int) (100d*totalWritten/file.Length);
             }
 
             fileStream.Dispose();
@@ -175,19 +169,19 @@ namespace p2p_client
         protected override async void OnShown(EventArgs e)
         {
             // Listen
-            TcpListener listener = TcpListener.Create(PORT);
+            var listener = TcpListener.Create(PORT);
             listener.Start();
             ReceiverTextBox.Text = "Waiting...";
-            TcpClient client = await listener.AcceptTcpClientAsync();
-            NetworkStream ns = client.GetStream();
+            var client = await listener.AcceptTcpClientAsync();
+            var ns = client.GetStream();
 
             // Get file info
             long fileLength;
             string fileName;
             {
                 byte[] fileNameBytes;
-                byte[] fileNameLengthBytes = new byte[4]; //int32
-                byte[] fileLengthBytes = new byte[8]; //int64
+                var fileNameLengthBytes = new byte[4]; //int32
+                var fileLengthBytes = new byte[8]; //int64
 
                 await ns.ReadAsync(fileLengthBytes, 0, 8); // int64
                 await ns.ReadAsync(fileNameLengthBytes, 0, 4); // int32
@@ -199,13 +193,16 @@ namespace p2p_client
             }
 
             // Get permission
-            if (MessageBox.Show(String.Format("Requesting permission to receive file:\r\n\r\n{0}\r\n{1} bytes long", fileName, fileLength), "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (
+                MessageBox.Show(
+                    string.Format("Requesting permission to receive file:\r\n\r\n{0}\r\n{1} bytes long", fileName,
+                        fileLength), "", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return;
             }
 
             // виставляєм куда засейвитьт файл (но пока воно тіки сохраня в папку)
-            SaveFileDialog sfd = new SaveFileDialog();
+            var sfd = new SaveFileDialog();
             sfd.CreatePrompt = false;
             sfd.OverwritePrompt = true;
             sfd.FileName = fileName;
@@ -215,20 +212,20 @@ namespace p2p_client
             //    return;
             //}
             ns.WriteByte(1); // Permission grantedd
-            FileStream fileStream = File.Open(sfd.FileName, FileMode.Create);
+            var fileStream = File.Open(sfd.FileName, FileMode.Create);
 
             // Receive
             ReceiverTextBox.Text = "Receiving...";
             //progressBar1.Style = ProgressBarStyle.Continuous;
             ReceiverProgressBar.Value = 0;
             int read;
-            int totalRead = 0;
-            byte[] buffer = new byte[32 * 1024]; // 32k chunks
+            var totalRead = 0;
+            var buffer = new byte[32*1024]; // 32k chunks
             while ((read = await ns.ReadAsync(buffer, 0, buffer.Length)) > 0)
             {
                 await fileStream.WriteAsync(buffer, 0, read);
                 totalRead += read;
-                ReceiverProgressBar.Value = (int)((100d * totalRead) / fileLength);
+                ReceiverProgressBar.Value = (int) (100d*totalRead/fileLength);
             }
 
             fileStream.Dispose();
@@ -239,7 +236,6 @@ namespace p2p_client
             {
                 Application.Restart();
             }
-            
         }
 
         //chat_open
@@ -273,7 +269,7 @@ namespace p2p_client
         private void flatButton1_Click(object sender, EventArgs e)
         {
             //запуск чата
-            Thread t = new Thread(chat_open);
+            var t = new Thread(chat_open);
             t.Start();
         }
     }
