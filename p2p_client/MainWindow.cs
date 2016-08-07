@@ -276,6 +276,5 @@ namespace p2p_client
             Thread t = new Thread(chat_open);
             t.Start();
         }
-
     }
 }

@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.formSkin1 = new FlatUI.FormSkin();
+            this.FileReceiverTextBox = new System.Windows.Forms.TextBox();
             this.flatButton1 = new FlatUI.FlatButton();
             this.TransmitterProgressBar = new FlatUI.FlatProgressBar();
             this.SendFileButton = new FlatUI.FlatButton();
-            this.FileReceiverTextBox = new FlatUI.FlatTextBox();
             this.flatGroupBox2 = new FlatUI.FlatGroupBox();
-            this.EnterIPTextBox = new FlatUI.FlatTextBox();
+            this.EnterIPTextBox = new System.Windows.Forms.TextBox();
             this.flatGroupBox1 = new FlatUI.FlatGroupBox();
             this.ReceiverProgressBar = new FlatUI.FlatProgressBar();
             this.ReceiverTextBox = new FlatUI.FlatTextBox();
@@ -52,10 +52,10 @@
             this.formSkin1.BackColor = System.Drawing.Color.White;
             this.formSkin1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
             this.formSkin1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(58)))), ((int)(((byte)(60)))));
+            this.formSkin1.Controls.Add(this.FileReceiverTextBox);
             this.formSkin1.Controls.Add(this.flatButton1);
             this.formSkin1.Controls.Add(this.TransmitterProgressBar);
             this.formSkin1.Controls.Add(this.SendFileButton);
-            this.formSkin1.Controls.Add(this.FileReceiverTextBox);
             this.formSkin1.Controls.Add(this.flatGroupBox2);
             this.formSkin1.Controls.Add(this.flatGroupBox1);
             this.formSkin1.Controls.Add(this.flatClose1);
@@ -70,6 +70,20 @@
             this.formSkin1.Size = new System.Drawing.Size(425, 373);
             this.formSkin1.TabIndex = 0;
             this.formSkin1.Text = "p2p_client";
+            // 
+            // FileReceiverTextBox
+            // 
+            this.FileReceiverTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.FileReceiverTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.FileReceiverTextBox.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.FileReceiverTextBox.Location = new System.Drawing.Point(3, 62);
+            this.FileReceiverTextBox.Multiline = true;
+            this.FileReceiverTextBox.Name = "FileReceiverTextBox";
+            this.FileReceiverTextBox.ReadOnly = true;
+            this.FileReceiverTextBox.Size = new System.Drawing.Size(229, 211);
+            this.FileReceiverTextBox.TabIndex = 11;
+            this.FileReceiverTextBox.Text = "Click here or Drag\'n\'Drop file here";
+            this.FileReceiverTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // flatButton1
             // 
@@ -117,49 +131,28 @@
             this.SendFileButton.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.SendFileButton.Click += new System.EventHandler(this.SendFileButton_Click);
             // 
-            // FileReceiverTextBox
-            // 
-            this.FileReceiverTextBox.BackColor = System.Drawing.Color.Transparent;
-            this.FileReceiverTextBox.FocusOnHover = false;
-            this.FileReceiverTextBox.Location = new System.Drawing.Point(3, 62);
-            this.FileReceiverTextBox.MaxLength = 32767;
-            this.FileReceiverTextBox.Multiline = true;
-            this.FileReceiverTextBox.Name = "FileReceiverTextBox";
-            this.FileReceiverTextBox.ReadOnly = true;
-            this.FileReceiverTextBox.Size = new System.Drawing.Size(229, 211);
-            this.FileReceiverTextBox.TabIndex = 0;
-            this.FileReceiverTextBox.Text = "Click here or Drag\'n\'Drop file here";
-            this.FileReceiverTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.FileReceiverTextBox.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.FileReceiverTextBox.UseSystemPasswordChar = false;
-            // 
             // flatGroupBox2
             // 
             this.flatGroupBox2.BackColor = System.Drawing.Color.Transparent;
             this.flatGroupBox2.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
             this.flatGroupBox2.Controls.Add(this.EnterIPTextBox);
             this.flatGroupBox2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.flatGroupBox2.Location = new System.Drawing.Point(261, 99);
+            this.flatGroupBox2.Location = new System.Drawing.Point(259, 108);
             this.flatGroupBox2.Name = "flatGroupBox2";
             this.flatGroupBox2.ShowText = true;
-            this.flatGroupBox2.Size = new System.Drawing.Size(163, 92);
+            this.flatGroupBox2.Size = new System.Drawing.Size(163, 76);
             this.flatGroupBox2.TabIndex = 9;
             this.flatGroupBox2.Text = "Enter here encripted IP:";
             // 
             // EnterIPTextBox
             // 
-            this.EnterIPTextBox.BackColor = System.Drawing.Color.Transparent;
-            this.EnterIPTextBox.FocusOnHover = false;
-            this.EnterIPTextBox.Location = new System.Drawing.Point(22, 60);
-            this.EnterIPTextBox.MaxLength = 32767;
-            this.EnterIPTextBox.Multiline = false;
+            this.EnterIPTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.EnterIPTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EnterIPTextBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.EnterIPTextBox.Location = new System.Drawing.Point(26, 56);
             this.EnterIPTextBox.Name = "EnterIPTextBox";
-            this.EnterIPTextBox.ReadOnly = false;
-            this.EnterIPTextBox.Size = new System.Drawing.Size(123, 29);
+            this.EnterIPTextBox.Size = new System.Drawing.Size(123, 18);
             this.EnterIPTextBox.TabIndex = 0;
-            this.EnterIPTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.EnterIPTextBox.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.EnterIPTextBox.UseSystemPasswordChar = false;
             // 
             // flatGroupBox1
             // 
@@ -213,12 +206,13 @@
             // 
             this.YourIPTextBox.BackColor = System.Drawing.Color.Transparent;
             this.YourIPTextBox.FocusOnHover = false;
+            this.YourIPTextBox.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.YourIPTextBox.Location = new System.Drawing.Point(23, 63);
             this.YourIPTextBox.MaxLength = 32767;
             this.YourIPTextBox.Multiline = false;
             this.YourIPTextBox.Name = "YourIPTextBox";
             this.YourIPTextBox.ReadOnly = true;
-            this.YourIPTextBox.Size = new System.Drawing.Size(123, 29);
+            this.YourIPTextBox.Size = new System.Drawing.Size(123, 31);
             this.YourIPTextBox.TabIndex = 1;
             this.YourIPTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.YourIPTextBox.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
@@ -274,7 +268,9 @@
             this.Text = "MainWindow";
             this.TransparencyKey = System.Drawing.Color.Fuchsia;
             this.formSkin1.ResumeLayout(false);
+            this.formSkin1.PerformLayout();
             this.flatGroupBox2.ResumeLayout(false);
+            this.flatGroupBox2.PerformLayout();
             this.flatGroupBox1.ResumeLayout(false);
             this.flatGroupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -294,8 +290,8 @@
         private FlatUI.FlatGroupBox flatGroupBox2;
         private FlatUI.FlatButton SendFileButton;
         private FlatUI.FlatProgressBar TransmitterProgressBar;
-        private FlatUI.FlatTextBox FileReceiverTextBox;
         private FlatUI.FlatButton flatButton1;
-        public FlatUI.FlatTextBox EnterIPTextBox;
+        private System.Windows.Forms.TextBox FileReceiverTextBox;
+        public System.Windows.Forms.TextBox EnterIPTextBox;
     }
 }

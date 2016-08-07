@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -32,12 +33,25 @@ namespace p2p_client
             ChatSendButton.Click += ChatSendButton_Click;
             InitializeSender();
             InitializeReceiver();
+
+            //enter send
+            //ChatTextBox.KeyDown += ChatTextBox_KeyDown;
+
         }
 
         private MainWindow otherForm = new MainWindow();
         private void GetOtherFormTextBox()
         {
-            textBox1.Text = otherForm.EnterIPTextBox.Text;
+            try
+            {
+                IPAddress addrs = IPAddress.Parse(otherForm.EnterIPTextBox.Text);
+                textBox1.Text = addrs.ToString();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error with IP");
+            }
+            //string y = otherForm.EnterIPTextBox.Text;
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -73,15 +87,30 @@ namespace p2p_client
             receivingThread.Start();
         }
 
+        ////send enter
+        //private void ChatTextBox_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        ChatSendButton_Click(sender, e);
+        //    }
+        //}
+        private void CheckEnter(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                ChatSendButton_Click(sender, e);
+            }
+            ChatTextBox.Text = ChatTextBox.Text.TrimEnd();
+        }
         private void ChatSendButton_Click(object sender, EventArgs e)
         {
             ChatTextBox.Text = ChatTextBox.Text.TrimEnd();
 
-
             if (!string.IsNullOrEmpty(ChatTextBox.Text))
             {
                 string toSend = userName + ":" + Environment.NewLine + ChatTextBox.Text;
-                byte[] data = Encoding.ASCII.GetBytes(toSend);
+                byte[] data = Encoding.UTF8.GetBytes(toSend);
                 sendingClient.Send(data, data.Length);
                 ChatTextBox.Text = "";
             }
@@ -96,7 +125,7 @@ namespace p2p_client
             while (true)
             {
                 byte[] data = receivingClient.Receive(ref endPoint);
-                string message = Encoding.ASCII.GetString(data);
+                string message = Encoding.UTF8.GetString(data);
                 Invoke(messageDelegate, message);
             }
         }
