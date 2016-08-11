@@ -10,13 +10,13 @@ namespace p2p_client
     public partial class chat : Form
     {
         private const int charport = 54545;
-        private const string broadcastAddress = "127.0.0.1";
+        private readonly string userName = "broadcastAddress";
+        private readonly string broadcastAddress = "127.0.0.1";
 
-        private readonly MainWindow otherForm = new MainWindow();
+        //private readonly MainWindow otherForm = new MainWindow();
         private UdpClient receivingClient;
         private Thread receivingThread;
         private UdpClient sendingClient;
-        private readonly string userName = broadcastAddress;
 
         public chat()
         {
@@ -27,26 +27,34 @@ namespace p2p_client
             InitializeReceiver();
 
             //enter send
-            //ChatTextBox.KeyDown += ChatTextBox_KeyDown;
+            ChatTextBox.KeyDown += ChatTextBox_KeyDown;
         }
 
-        private void GetOtherFormTextBox()
+        private void chat_Load(object sender, EventArgs e)
+        {
+            var broadcastAddress = MainWindow.passtext;
+            textBox1.Text = broadcastAddress;
+        }
+
+
+        /*private void GetOtherFormTextBox()
         {
             try
             {
-                var addrs = IPAddress.Parse(otherForm.EnterIPTextBox.Text);
-                textBox1.Text = addrs.ToString();
+                var addrs = otherForm.EnterIPTextBox.Text;
+                textBox1.Text = addrs;
             }
             catch (Exception)
             {
                 MessageBox.Show("Error with IP");
             }
             //string y = otherForm.EnterIPTextBox.Text;
-        }
+        }*/
 
         private void button1_Click(object sender, EventArgs e)
         {
-            GetOtherFormTextBox();
+            //GetOtherFormTextBox();
+            WindowState = FormWindowState.Minimized;
         }
 
         //chat
@@ -78,22 +86,24 @@ namespace p2p_client
             receivingThread.Start();
         }
 
-        ////send enter
-        //private void ChatTextBox_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.KeyCode == Keys.Enter)
-        //    {
-        //        ChatSendButton_Click(sender, e);
-        //    }
-        //}
-        private void CheckEnter(object sender, KeyPressEventArgs e)
+        //send enter
+        private void ChatTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyChar == (char) 13)
+            if (e.KeyCode == Keys.Enter)
             {
                 ChatSendButton_Click(sender, e);
             }
-            ChatTextBox.Text = ChatTextBox.Text.TrimEnd();
         }
+
+        //private void CheckEnter(object sender, KeyPressEventArgs e)
+        //{
+        //    if (e.KeyChar == (char)13)
+        //    {
+        //        ChatSendButton_Click(sender, e);
+        //    }
+        //    //ChatTextBox.Text = ChatTextBox.Text.TrimEnd(); профіксить перекид
+        //    //ChatTextBox.Text = string.Empty;
+        //}
 
         private void ChatSendButton_Click(object sender, EventArgs e)
         {
@@ -134,7 +144,6 @@ namespace p2p_client
             Receiver_TextBox.ScrollToCaret();
         }
 
-        //chat
         private delegate void AddMessage(string message);
     }
 }

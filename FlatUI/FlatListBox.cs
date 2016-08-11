@@ -80,9 +80,6 @@ namespace FlatUI
             {
                 var functionReturnValue = 0;
                 return ListBx.SelectedIndex;
-                if (ListBx.SelectedIndex < 0)
-                    return functionReturnValue;
-                return functionReturnValue;
             }
         }
 

@@ -59,7 +59,6 @@ namespace FlatUI
             {
                 var functionReturnValue = 0;
                 return functionReturnValue;
-                return functionReturnValue;
             }
             set
             {

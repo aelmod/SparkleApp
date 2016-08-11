@@ -14,6 +14,8 @@ namespace p2p_client
         private const int PORT = 1723;
         private static readonly object locker = new object();
 
+        public static string passtext;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -56,7 +58,7 @@ namespace p2p_client
                 // В objects хранятся пути к папкам и файлам
                 FileReceiverTextBox.Text = null;
                 for (var i = 0; i < objects.Length; i++)
-                    FileReceiverTextBox.Text += objects[i];
+                    FileReceiverTextBox.Text += objects[i] /* + Environment.NewLine*/;
             }
         }
 
@@ -67,7 +69,7 @@ namespace p2p_client
             ofd.CheckPathExists = true;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                FileReceiverTextBox.Text = ofd.FileName;
+                FileReceiverTextBox.Text = ofd.SafeFileName;
             }
         }
 
@@ -232,6 +234,7 @@ namespace p2p_client
             client.Close();
             MessageBox.Show("File successfully received");
 
+            //рестарт після прийома файла (замінить!)
             if (!client.Connected)
             {
                 Application.Restart();
@@ -268,9 +271,21 @@ namespace p2p_client
 
         private void flatButton1_Click(object sender, EventArgs e)
         {
+            //передача ІР в чат
+            passtext = EnterIPTextBox.Text;
             //запуск чата
             var t = new Thread(chat_open);
             t.Start();
+
+            //for debug
+            //chat f = new chat();
+            //f.Show();     
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var f = new UDP_P2P();
+            f.Show();
         }
     }
 }
