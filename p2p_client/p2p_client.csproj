@@ -56,6 +56,12 @@
     <Compile Include="chat.Designer.cs">
       <DependentUpon>chat.cs</DependentUpon>
     </Compile>
+    <Compile Include="chat2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="chat2.Designer.cs">
+      <DependentUpon>chat2.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     <EmbeddedResource Include="chat.resx">
       <DependentUpon>chat.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="chat2.resx">
+      <DependentUpon>chat2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -84,6 +93,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="UDP_P2P.resx">
       <DependentUpon>UDP_P2P.cs</DependentUpon>
@@ -107,6 +117,18 @@
       <Project>{FC508337-0212-4F3B-88FE-5C9FF09F4D47}</Project>
       <Name>FlatUI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\writing-message.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\comments.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\code.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cog-wheel-silhouette.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -269,7 +269,38 @@ namespace p2p_client
         }
 
 
-        private void flatButton1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var f = new UDP_P2P();
+            f.Show();
+
+            var z = new chat2();
+            z.Show();
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void debug_picture_Click(object sender, EventArgs e)
+        {
+
+            if (textBox1.Visible==false)
+            {
+                textBox1.Visible = true;
+                button1.Visible = true;
+                flatLabel1.Visible = true;
+            }
+            else
+            {
+                textBox1.Visible = false;
+                button1.Visible = false;
+                flatLabel1.Visible = false;
+            }
+
+        }
+
+        private void chat_picture_Click(object sender, EventArgs e)
         {
             //передача ІР в чат
             passtext = EnterIPTextBox.Text;
@@ -279,13 +310,7 @@ namespace p2p_client
 
             //for debug
             //chat f = new chat();
-            //f.Show();     
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var f = new UDP_P2P();
-            f.Show();
+            //f.Show(); 
         }
     }
 }

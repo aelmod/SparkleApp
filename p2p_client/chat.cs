@@ -9,6 +9,8 @@ namespace p2p_client
 {
     public partial class chat : Form
     {
+        private bool allowshowdisplay = true;
+
         private const int charport = 54545;
         private readonly string userName = "broadcastAddress";
         private readonly string broadcastAddress = "127.0.0.1";
@@ -28,6 +30,24 @@ namespace p2p_client
 
             //enter send
             ChatTextBox.KeyDown += ChatTextBox_KeyDown;
+
+            button1.MouseClick += button1_MouseClick;
+        }
+
+
+        //сверталка
+        protected override void SetVisibleCore(bool value)
+        {
+            base.SetVisibleCore(allowshowdisplay ? value : allowshowdisplay);
+        }
+
+        private void button1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                allowshowdisplay = true;
+                Visible = !Visible;
+            }
         }
 
         private void chat_Load(object sender, EventArgs e)

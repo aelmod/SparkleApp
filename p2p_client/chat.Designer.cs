@@ -55,6 +55,7 @@
             // 
             this.Receiver_TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
             this.Receiver_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Receiver_TextBox.Enabled = false;
             this.Receiver_TextBox.ForeColor = System.Drawing.SystemColors.Window;
             this.Receiver_TextBox.Location = new System.Drawing.Point(3, 54);
             this.Receiver_TextBox.Multiline = true;
@@ -126,7 +127,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(1135, 353);
             this.Name = "chat";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "chat";
             this.TransparencyKey = System.Drawing.Color.Fuchsia;
             this.Load += new System.EventHandler(this.chat_Load);
@@ -141,8 +142,8 @@
         private FlatUI.FlatButton ChatSendButton;
         private System.Windows.Forms.TextBox Receiver_TextBox;
         private System.Windows.Forms.TextBox ChatTextBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
         private FlatUI.FormSkin formSkin1;
+        public System.Windows.Forms.Button button1;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }

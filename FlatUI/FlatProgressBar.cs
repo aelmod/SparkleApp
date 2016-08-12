@@ -78,7 +78,7 @@ namespace FlatUI
         public bool PercentSign { get; set; } = false;
 
         [Category("Colors")]
-        public Color ProgressColor { get; set; } = Helpers.FlatColor;
+        public Color ProgressColor { get; set; } = Color.FromArgb(23, 148, 92);
 
         [Category("Colors")]
         public Color DarkerProgress { get; set; } = Color.FromArgb(23, 148, 92);
