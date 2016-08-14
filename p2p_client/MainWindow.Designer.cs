@@ -30,6 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.formSkin1 = new FlatUI.FormSkin();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.settings_picture = new System.Windows.Forms.PictureBox();
+            this.chat_picture = new System.Windows.Forms.PictureBox();
+            this.debug_picture = new System.Windows.Forms.PictureBox();
+            this.flatLabel1 = new FlatUI.FlatLabel();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.FileReceiverTextBox = new System.Windows.Forms.TextBox();
@@ -44,18 +49,13 @@
             this.flatLabel2 = new FlatUI.FlatLabel();
             this.flatClose1 = new FlatUI.FlatClose();
             this.flatMini1 = new FlatUI.FlatMini();
-            this.flatLabel1 = new FlatUI.FlatLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.chat_picture = new System.Windows.Forms.PictureBox();
-            this.debug_picture = new System.Windows.Forms.PictureBox();
-            this.settings_picture = new System.Windows.Forms.PictureBox();
             this.formSkin1.SuspendLayout();
-            this.flatGroupBox2.SuspendLayout();
-            this.flatGroupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.settings_picture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chat_picture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.debug_picture)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.settings_picture)).BeginInit();
+            this.flatGroupBox2.SuspendLayout();
+            this.flatGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // formSkin1
@@ -84,6 +84,61 @@
             this.formSkin1.Size = new System.Drawing.Size(485, 373);
             this.formSkin1.TabIndex = 0;
             this.formSkin1.Text = "p2p_client";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.panel1.Controls.Add(this.settings_picture);
+            this.panel1.Controls.Add(this.chat_picture);
+            this.panel1.Controls.Add(this.debug_picture);
+            this.panel1.Location = new System.Drawing.Point(451, 50);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(34, 323);
+            this.panel1.TabIndex = 17;
+            // 
+            // settings_picture
+            // 
+            this.settings_picture.Image = global::p2p_client.Properties.Resources.cog_wheel_silhouette;
+            this.settings_picture.Location = new System.Drawing.Point(1, 79);
+            this.settings_picture.Name = "settings_picture";
+            this.settings_picture.Size = new System.Drawing.Size(32, 32);
+            this.settings_picture.TabIndex = 16;
+            this.settings_picture.TabStop = false;
+            // 
+            // chat_picture
+            // 
+            this.chat_picture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.chat_picture.Image = ((System.Drawing.Image)(resources.GetObject("chat_picture.Image")));
+            this.chat_picture.Location = new System.Drawing.Point(1, 3);
+            this.chat_picture.Name = "chat_picture";
+            this.chat_picture.Size = new System.Drawing.Size(32, 32);
+            this.chat_picture.TabIndex = 14;
+            this.chat_picture.TabStop = false;
+            this.chat_picture.Click += new System.EventHandler(this.chat_picture_Click);
+            // 
+            // debug_picture
+            // 
+            this.debug_picture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.debug_picture.Image = global::p2p_client.Properties.Resources.code;
+            this.debug_picture.Location = new System.Drawing.Point(1, 41);
+            this.debug_picture.Name = "debug_picture";
+            this.debug_picture.Size = new System.Drawing.Size(32, 32);
+            this.debug_picture.TabIndex = 15;
+            this.debug_picture.TabStop = false;
+            this.debug_picture.Click += new System.EventHandler(this.debug_picture_Click);
+            // 
+            // flatLabel1
+            // 
+            this.flatLabel1.AutoSize = true;
+            this.flatLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.flatLabel1.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.flatLabel1.ForeColor = System.Drawing.Color.White;
+            this.flatLabel1.Location = new System.Drawing.Point(4, 324);
+            this.flatLabel1.Name = "flatLabel1";
+            this.flatLabel1.Size = new System.Drawing.Size(106, 13);
+            this.flatLabel1.TabIndex = 16;
+            this.flatLabel1.Text = "Test mode enabled!";
+            this.flatLabel1.Visible = false;
             // 
             // button1
             // 
@@ -274,61 +329,6 @@
             this.flatMini1.Text = "flatMini1";
             this.flatMini1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             // 
-            // flatLabel1
-            // 
-            this.flatLabel1.AutoSize = true;
-            this.flatLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.flatLabel1.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.flatLabel1.ForeColor = System.Drawing.Color.White;
-            this.flatLabel1.Location = new System.Drawing.Point(4, 324);
-            this.flatLabel1.Name = "flatLabel1";
-            this.flatLabel1.Size = new System.Drawing.Size(106, 13);
-            this.flatLabel1.TabIndex = 16;
-            this.flatLabel1.Text = "Test mode enabled!";
-            this.flatLabel1.Visible = false;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
-            this.panel1.Controls.Add(this.settings_picture);
-            this.panel1.Controls.Add(this.chat_picture);
-            this.panel1.Controls.Add(this.debug_picture);
-            this.panel1.Location = new System.Drawing.Point(451, 50);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(34, 323);
-            this.panel1.TabIndex = 17;
-            // 
-            // chat_picture
-            // 
-            this.chat_picture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
-            this.chat_picture.Image = ((System.Drawing.Image)(resources.GetObject("chat_picture.Image")));
-            this.chat_picture.Location = new System.Drawing.Point(1, 3);
-            this.chat_picture.Name = "chat_picture";
-            this.chat_picture.Size = new System.Drawing.Size(32, 32);
-            this.chat_picture.TabIndex = 14;
-            this.chat_picture.TabStop = false;
-            this.chat_picture.Click += new System.EventHandler(this.chat_picture_Click);
-            // 
-            // debug_picture
-            // 
-            this.debug_picture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
-            this.debug_picture.Image = global::p2p_client.Properties.Resources.code;
-            this.debug_picture.Location = new System.Drawing.Point(1, 41);
-            this.debug_picture.Name = "debug_picture";
-            this.debug_picture.Size = new System.Drawing.Size(32, 32);
-            this.debug_picture.TabIndex = 15;
-            this.debug_picture.TabStop = false;
-            this.debug_picture.Click += new System.EventHandler(this.debug_picture_Click);
-            // 
-            // settings_picture
-            // 
-            this.settings_picture.Image = global::p2p_client.Properties.Resources.cog_wheel_silhouette;
-            this.settings_picture.Location = new System.Drawing.Point(1, 79);
-            this.settings_picture.Name = "settings_picture";
-            this.settings_picture.Size = new System.Drawing.Size(32, 32);
-            this.settings_picture.TabIndex = 16;
-            this.settings_picture.TabStop = false;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -343,14 +343,14 @@
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.formSkin1.ResumeLayout(false);
             this.formSkin1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.settings_picture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chat_picture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debug_picture)).EndInit();
             this.flatGroupBox2.ResumeLayout(false);
             this.flatGroupBox2.PerformLayout();
             this.flatGroupBox1.ResumeLayout(false);
             this.flatGroupBox1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chat_picture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.debug_picture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.settings_picture)).EndInit();
             this.ResumeLayout(false);
 
         }

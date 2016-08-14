@@ -8,14 +8,14 @@ namespace FlatUI
 {
     public class FormSkin : ContainerControl
     {
+        private readonly int MoveHeight = 50;
+        private readonly Color TextColor = Color.FromArgb(234, 234, 234);
         private Color _BaseLight = Color.FromArgb(196, 199, 200);
 
         private Color _HeaderLight = Color.FromArgb(171, 171, 172);
         private bool Cap;
         private int H;
         private Point MousePoint = new Point(0, 0);
-        private readonly int MoveHeight = 50;
-        private readonly Color TextColor = Color.FromArgb(234, 234, 234);
         public Color TextLight = Color.FromArgb(45, 47, 49);
         private int W;
 

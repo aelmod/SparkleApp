@@ -20,10 +20,10 @@ namespace FlatUI
         }
 
         private readonly Color _BaseColor = Color.FromArgb(45, 47, 49);
+        private readonly Color _TextColor = Color.FromArgb(243, 243, 243);
         private Color _BorderColor = Helpers.FlatColor;
 
         private bool _Checked;
-        private readonly Color _TextColor = Color.FromArgb(243, 243, 243);
         private int H;
         private MouseState State = MouseState.None;
         private int W;

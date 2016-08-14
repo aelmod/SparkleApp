@@ -273,9 +273,6 @@ namespace p2p_client
         {
             var f = new UDP_P2P();
             f.Show();
-
-            var z = new chat2();
-            z.Show();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -284,8 +281,7 @@ namespace p2p_client
 
         private void debug_picture_Click(object sender, EventArgs e)
         {
-
-            if (textBox1.Visible==false)
+            if (textBox1.Visible == false)
             {
                 textBox1.Visible = true;
                 button1.Visible = true;
@@ -297,16 +293,24 @@ namespace p2p_client
                 button1.Visible = false;
                 flatLabel1.Visible = false;
             }
-
         }
 
         private void chat_picture_Click(object sender, EventArgs e)
         {
+            IPAddress address;
+            if (!IPAddress.TryParse(EnterIPTextBox.Text, out address))
+            {
+                MessageBox.Show("Error with IP Address");
+            }
+            else
+            {
+                //запуск чата
+                var t = new Thread(chat_open);
+                t.Start();
+            }
             //передача ІР в чат
             passtext = EnterIPTextBox.Text;
-            //запуск чата
-            var t = new Thread(chat_open);
-            t.Start();
+
 
             //for debug
             //chat f = new chat();

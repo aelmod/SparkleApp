@@ -24,13 +24,14 @@ namespace FlatUI
             //-- TODO: New Style
         }
 
-        private Color BaseColor = Helpers.FlatColor;
         private readonly Color BaseColorRed = Color.FromArgb(220, 85, 96);
         private readonly Color BGColor = Color.FromArgb(84, 85, 86);
-        private int H;
-        private MouseState State = MouseState.None;
         private readonly Color TextColor = Color.FromArgb(243, 243, 243);
         private readonly Color ToggleColor = Color.FromArgb(45, 47, 49);
+
+        private Color BaseColor = Helpers.FlatColor;
+        private int H;
+        private MouseState State = MouseState.None;
         private int W;
 
         public FlatToggle()

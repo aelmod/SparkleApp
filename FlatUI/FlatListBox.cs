@@ -8,9 +8,8 @@ namespace FlatUI
 {
     public class FlatListBox : Control
     {
-        private string[] _items = {""};
-
         private readonly Color BaseColor = Color.FromArgb(45, 47, 49);
+        private string[] _items = {""};
         private ListBox withEventsField_ListBx = new ListBox();
 
         public FlatListBox()

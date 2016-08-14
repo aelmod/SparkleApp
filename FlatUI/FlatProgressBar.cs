@@ -78,7 +78,7 @@ namespace FlatUI
         public bool PercentSign { get; set; } = false;
 
         [Category("Colors")]
-        public Color ProgressColor { get; set; } = Color.FromArgb(23, 148, 92);
+        public Color ProgressColor { get; set; } = Color.FromArgb(0, 0, 0);
 
         [Category("Colors")]
         public Color DarkerProgress { get; set; } = Color.FromArgb(23, 148, 92);
@@ -102,8 +102,6 @@ namespace FlatUI
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            UpdateColors();
-
             var B = new Bitmap(Width, Height);
             var G = Graphics.FromImage(B);
             W = Width - 1;
@@ -180,13 +178,6 @@ namespace FlatUI
             e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             e.Graphics.DrawImageUnscaled(B, 0, 0);
             B.Dispose();
-        }
-
-        private void UpdateColors()
-        {
-            var colors = Helpers.GetColors(this);
-
-            ProgressColor = colors.Flat;
         }
     }
 }

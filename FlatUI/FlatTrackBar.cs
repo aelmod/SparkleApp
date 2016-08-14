@@ -19,17 +19,17 @@ namespace FlatUI
             Knob
         }
 
+        private readonly Color BaseColor = Color.FromArgb(45, 47, 49);
+        private readonly Color SliderColor = Color.FromArgb(25, 27, 29);
+
         private int _Maximum = 10;
 
         private int _Minimum;
 
         private int _Value;
-
-        private readonly Color BaseColor = Color.FromArgb(45, 47, 49);
         private bool Bool;
         private int H;
         private Rectangle Knob;
-        private readonly Color SliderColor = Color.FromArgb(25, 27, 29);
         private Rectangle Track;
         private int Val;
         private int W;

@@ -9,11 +9,10 @@ namespace p2p_client
 {
     public partial class chat : Form
     {
-        private bool allowshowdisplay = true;
-
         private const int charport = 54545;
-        private readonly string userName = "broadcastAddress";
-        private readonly string broadcastAddress = "127.0.0.1";
+        //private readonly string userName = broadcastAddress;
+        private const string broadcastAddress = "127.0.0.1";
+        private bool allowshowdisplay = true;
 
         //private readonly MainWindow otherForm = new MainWindow();
         private UdpClient receivingClient;
@@ -71,11 +70,11 @@ namespace p2p_client
             //string y = otherForm.EnterIPTextBox.Text;
         }*/
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //GetOtherFormTextBox();
-            WindowState = FormWindowState.Minimized;
-        }
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    //GetOtherFormTextBox();
+        //    WindowState = FormWindowState.Minimized;
+        //}
 
         //chat
         private void InitializeSender()
@@ -128,7 +127,7 @@ namespace p2p_client
         private void ChatSendButton_Click(object sender, EventArgs e)
         {
             ChatTextBox.Text = ChatTextBox.Text.TrimEnd();
-
+            var userName = broadcastAddress;
             if (!string.IsNullOrEmpty(ChatTextBox.Text))
             {
                 var toSend = userName + ":" + Environment.NewLine + ChatTextBox.Text;

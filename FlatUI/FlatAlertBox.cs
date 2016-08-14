@@ -17,16 +17,17 @@ namespace FlatUI
             Info
         }
 
-        private string _Text;
         private readonly Color ErrorColor = Color.FromArgb(87, 71, 71);
         private readonly Color ErrorText = Color.FromArgb(254, 142, 122);
-        private int H;
         private readonly Color InfoColor = Color.FromArgb(70, 91, 94);
         private readonly Color InfoText = Color.FromArgb(97, 185, 186);
-        private MouseState State = MouseState.None;
 
         private readonly Color SuccessColor = Color.FromArgb(60, 85, 79);
         private readonly Color SuccessText = Color.FromArgb(35, 169, 110);
+
+        private string _Text;
+        private int H;
+        private MouseState State = MouseState.None;
 
         /// <summary>
         ///     How to use: FlatAlertBox.ShowControl(Kind, String, Interval)

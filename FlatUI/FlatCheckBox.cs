@@ -19,8 +19,9 @@ namespace FlatUI
             Style2
         }
 
-        private bool _Checked;
         private readonly Color _TextColor = Color.FromArgb(243, 243, 243);
+
+        private bool _Checked;
         private int H;
         private MouseState State = MouseState.None;
         private int W;

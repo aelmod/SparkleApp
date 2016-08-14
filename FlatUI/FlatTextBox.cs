@@ -11,6 +11,7 @@ namespace FlatUI
     public class FlatTextBox : Control
     {
         private readonly Color _BaseColor = Color.FromArgb(45, 47, 49);
+        private readonly TextBox TB;
         private Color _BorderColor = Helpers.FlatColor;
 
         private int _MaxLength = 32767;
@@ -24,7 +25,6 @@ namespace FlatUI
         private bool _UseSystemPasswordChar;
         private int H;
         private MouseState State = MouseState.None;
-        private readonly TextBox TB;
         private int W;
 
         public FlatTextBox()

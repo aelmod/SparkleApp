@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.flatClose1 = new FlatUI.FlatClose();
+            this.label1 = new System.Windows.Forms.Label();
             this.flatMini1 = new FlatUI.FlatMini();
-            this.flatLabel1 = new FlatUI.FlatLabel();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.receiver_textbox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -42,13 +43,38 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.panel1.Controls.Add(this.flatClose1);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.flatMini1);
-            this.panel1.Controls.Add(this.flatLabel1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(284, 49);
+            this.panel1.Size = new System.Drawing.Size(284, 38);
             this.panel1.TabIndex = 0;
+            // 
+            // flatClose1
+            // 
+            this.flatClose1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.flatClose1.BackColor = System.Drawing.Color.White;
+            this.flatClose1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(168)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.flatClose1.Font = new System.Drawing.Font("Marlett", 10F);
+            this.flatClose1.Location = new System.Drawing.Point(254, 12);
+            this.flatClose1.Name = "flatClose1";
+            this.flatClose1.Size = new System.Drawing.Size(18, 18);
+            this.flatClose1.TabIndex = 4;
+            this.flatClose1.Text = "flatClose1";
+            this.flatClose1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label1.Location = new System.Drawing.Point(34, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(85, 21);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "chat test UI";
             // 
             // flatMini1
             // 
@@ -56,54 +82,38 @@
             this.flatMini1.BackColor = System.Drawing.Color.White;
             this.flatMini1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
             this.flatMini1.Font = new System.Drawing.Font("Marlett", 12F);
-            this.flatMini1.Location = new System.Drawing.Point(254, 16);
+            this.flatMini1.Location = new System.Drawing.Point(230, 12);
             this.flatMini1.Name = "flatMini1";
             this.flatMini1.Size = new System.Drawing.Size(18, 18);
             this.flatMini1.TabIndex = 1;
             this.flatMini1.Text = "flatMini1";
             this.flatMini1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             // 
-            // flatLabel1
-            // 
-            this.flatLabel1.AutoSize = true;
-            this.flatLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.flatLabel1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.flatLabel1.ForeColor = System.Drawing.Color.White;
-            this.flatLabel1.Location = new System.Drawing.Point(42, 25);
-            this.flatLabel1.Name = "flatLabel1";
-            this.flatLabel1.Size = new System.Drawing.Size(87, 21);
-            this.flatLabel1.TabIndex = 0;
-            this.flatLabel1.Text = "chat test UI";
-            // 
             // richTextBox2
             // 
             this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
             this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.richTextBox2.ForeColor = System.Drawing.SystemColors.Window;
             this.richTextBox2.Location = new System.Drawing.Point(4, 290);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(221, 71);
             this.richTextBox2.TabIndex = 2;
             this.richTextBox2.Text = "";
             // 
-            // textBox1
+            // receiver_textbox
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(4, 52);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(277, 232);
-            this.textBox1.TabIndex = 4;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(4, 14);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.receiver_textbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.receiver_textbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.receiver_textbox.Enabled = false;
+            this.receiver_textbox.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.receiver_textbox.ForeColor = System.Drawing.SystemColors.Window;
+            this.receiver_textbox.Location = new System.Drawing.Point(4, 42);
+            this.receiver_textbox.Multiline = true;
+            this.receiver_textbox.Name = "receiver_textbox";
+            this.receiver_textbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.receiver_textbox.Size = new System.Drawing.Size(277, 243);
+            this.receiver_textbox.TabIndex = 4;
             // 
             // button1
             // 
@@ -121,18 +131,28 @@
             this.button1.Text = "SEND";
             this.button1.UseVisualStyleBackColor = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::p2p_client.Properties.Resources.comments_24;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 9);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(24, 24);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
             // chat2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(284, 373);
+            this.ClientSize = new System.Drawing.Size(284, 366);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.receiver_textbox);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "chat2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "chat2";
             this.Load += new System.EventHandler(this.chat2_Load);
             this.panel1.ResumeLayout(false);
@@ -146,11 +166,12 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private FlatUI.FlatLabel flatLabel1;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private FlatUI.FlatMini flatMini1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox receiver_textbox;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
+        private FlatUI.FlatClose flatClose1;
     }
 }
