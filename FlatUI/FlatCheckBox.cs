@@ -55,7 +55,7 @@ namespace FlatUI
         public Color BaseColor { get; set; } = Color.FromArgb(45, 47, 49);
 
         [Category("Colors")]
-        public Color BorderColor { get; set; } = Helpers.FlatColor;
+        public Color BorderColor { get; set; } = Color.FromArgb(0, 0, 0);
 
         protected override void OnTextChanged(EventArgs e)
         {
@@ -111,7 +111,6 @@ namespace FlatUI
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            UpdateColors();
 
             var B = new Bitmap(Width, Height);
             var G = Graphics.FromImage(B);
@@ -209,11 +208,5 @@ namespace FlatUI
             B.Dispose();
         }
 
-        private void UpdateColors()
-        {
-            var colors = Helpers.GetColors(this);
-
-            BorderColor = colors.Flat;
-        }
     }
 }

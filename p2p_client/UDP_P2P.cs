@@ -76,5 +76,11 @@ namespace p2p_client
                 LocationChanged += (s, _) => fn(_wnd);
             }
         }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            settings f = new settings();
+            f.Show();
+        }
     }
 }

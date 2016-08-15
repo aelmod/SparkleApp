@@ -123,6 +123,26 @@ namespace p2p_client.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap shimmer_24x27 {
+            get {
+                object obj = ResourceManager.GetObject("shimmer_24x27", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap twilight_sparkle_ico_32x30 {
+            get {
+                object obj = ResourceManager.GetObject("twilight_sparkle_ico_32x30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap writing_message {
             get {
                 object obj = ResourceManager.GetObject("writing_message", resourceCulture);
