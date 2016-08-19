@@ -160,6 +160,12 @@
   <ItemGroup>
     <None Include="Resources\twilight_sparkle_ico_32x30.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\default_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save-file-option_24x24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

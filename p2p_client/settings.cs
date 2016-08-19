@@ -19,30 +19,30 @@ namespace p2p_client
         {
             InitializeComponent();
 
-            panel1.MouseDown += panel1_MouseDown;
-            panel1.MouseMove += panel1_MouseMove;
+            SettingsTabControl.MouseDown += SettingsTabControl_MouseDown;
+            SettingsTabControl.MouseMove += SettingsTabControl_MouseMove;
 
-            label1.MouseDown += panel1_MouseDown;
-            label1.MouseMove += panel1_MouseMove;
-
-            pictureBox1.MouseDown += panel1_MouseDown;
-            pictureBox1.MouseMove += panel1_MouseMove;
         }
 
         // Нажатие кнопки мышки
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        private void SettingsTabControl_MouseDown(object sender, MouseEventArgs e)
         {
             x = e.X;
             y = e.Y;
         }
 
         // Движение мышки
-        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        private void SettingsTabControl_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 Location = new Point(Location.X + (e.X - x), Location.Y + (e.Y - y));
             }
         }   //переміщення за панель [END]
+
+
+        private void settings_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

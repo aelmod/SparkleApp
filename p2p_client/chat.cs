@@ -12,7 +12,8 @@ namespace p2p_client
         private const int charport = 54545;
         //private readonly string userName = broadcastAddress;
         private const string broadcastAddress = "127.0.0.1";
-        private bool allowshowdisplay = true;
+
+        public bool allowshowdisplay = MainWindow.allowshowdisplay;
 
         //private readonly MainWindow otherForm = new MainWindow();
         private UdpClient receivingClient;
@@ -24,7 +25,6 @@ namespace p2p_client
             InitializeComponent();
             //chat
             ChatSendButton.Click += ChatSendButton_Click;
-            InitializeSender();
             InitializeReceiver();
 
             //enter send
@@ -51,10 +51,47 @@ namespace p2p_client
 
         private void chat_Load(object sender, EventArgs e)
         {
-            var broadcastAddress = MainWindow.passtext;
-            textBox1.Text = broadcastAddress;
+            //var broadcastAddress = MainWindow.passtext;
+            textBox1.Text = MainWindow.passtext;
         }
 
+        private void InitializeSender()
+        {
+            //int ipAddress = BitConverter.ToInt32(IPAddress.Parse(EnterIPTextBox.Text).GetAddressBytes(), 0); /*преобразовать ІР в інт*/
+            //string broadcastAddress = new IPAddress(BitConverter.GetBytes(ipAddress)).ToString();
+
+            //IPAddress addr;
+            //IPAddress.TryParse(broadcastAddress, out addr);
+
+
+            //sendingClient = new UdpClient();
+            //sendingClient.Connect(MainWindow.passtext, charport);
+
+
+
+            sendingClient = new UdpClient(broadcastAddress, charport);
+            //IPAddress broadcastAddress;
+            //IPAddress.TryParse(textBox1.Text, out broadcastAddress);
+            //try
+            //{
+            //    sendingClient.Connect(broadcastAddress, port);
+            //}
+            //catch
+            //{
+            //}
+            sendingClient.EnableBroadcast = true;
+
+        }
+
+        private void InitializeReceiver()
+        {
+            receivingClient = new UdpClient(charport);
+
+            ThreadStart start = Receiver;
+            receivingThread = new Thread(start);
+            receivingThread.IsBackground = true;
+            receivingThread.Start();
+        }
 
         /*private void GetOtherFormTextBox()
         {
@@ -77,33 +114,7 @@ namespace p2p_client
         //}
 
         //chat
-        private void InitializeSender()
-        {
-            //int ipAddress = BitConverter.ToInt32(IPAddress.Parse(EnterIPTextBox.Text).GetAddressBytes(), 0); /*преобразовать ІР в інт*/
-            //string broadcastAddress = new IPAddress(BitConverter.GetBytes(ipAddress)).ToString();
 
-            sendingClient = new UdpClient(broadcastAddress, charport);
-            //IPAddress broadcastAddress;
-            //IPAddress.TryParse(textBox1.Text, out broadcastAddress);
-            //try
-            //{
-            //    sendingClient.Connect(broadcastAddress, port);
-            //}
-            //catch
-            //{
-            //}
-            sendingClient.EnableBroadcast = true;
-        }
-
-        private void InitializeReceiver()
-        {
-            receivingClient = new UdpClient(charport);
-
-            ThreadStart start = Receiver;
-            receivingThread = new Thread(start);
-            receivingThread.IsBackground = true;
-            receivingThread.Start();
-        }
 
         //send enter
         private void ChatTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -111,6 +122,10 @@ namespace p2p_client
             if (e.KeyCode == Keys.Enter)
             {
                 ChatSendButton_Click(sender, e);
+            }
+            if (ChatTextBox.TextLength > 0)
+            {
+                ChatTextBox.Text = ChatTextBox.Text.TrimStart();
             }
         }
 
@@ -126,8 +141,10 @@ namespace p2p_client
 
         private void ChatSendButton_Click(object sender, EventArgs e)
         {
+            InitializeSender();
+
             ChatTextBox.Text = ChatTextBox.Text.TrimEnd();
-            var userName = broadcastAddress;
+            var userName = MainWindow.passtext;
             if (!string.IsNullOrEmpty(ChatTextBox.Text))
             {
                 var toSend = userName + ":" + Environment.NewLine + ChatTextBox.Text;

@@ -30,7 +30,7 @@ namespace FlatUI
         public Color BaseColor { get; set; } = Color.FromArgb(45, 47, 49);
 
         [Category("Colors")]
-        public Color ActiveColor { get; set; } = Helpers.FlatColor;
+        public Color ActiveColor { get; set; } = Color.FromArgb(60, 70, 73);
 
         protected override void CreateHandle()
         {
@@ -40,8 +40,6 @@ namespace FlatUI
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            UpdateColors();
-
             var B = new Bitmap(Width, Height);
             var G = Graphics.FromImage(B);
             W = Width - 1;
@@ -166,11 +164,5 @@ namespace FlatUI
             B.Dispose();
         }
 
-        private void UpdateColors()
-        {
-            var colors = Helpers.GetColors(this);
-
-            ActiveColor = colors.Flat;
-        }
     }
 }

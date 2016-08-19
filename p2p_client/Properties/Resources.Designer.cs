@@ -113,6 +113,26 @@ namespace p2p_client.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap default_24x24 {
+            get {
+                object obj = ResourceManager.GetObject("default_24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save_file_option_24x24 {
+            get {
+                object obj = ResourceManager.GetObject("save_file_option_24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap settings_24 {
             get {
                 object obj = ResourceManager.GetObject("settings_24", resourceCulture);

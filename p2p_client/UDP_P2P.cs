@@ -82,5 +82,11 @@ namespace p2p_client
             settings f = new settings();
             f.Show();
         }
+
+        private void debug_Click(object sender, EventArgs e)
+        {
+            MainWindow f = new MainWindow();
+            f.Show();
+        }
     }
 }

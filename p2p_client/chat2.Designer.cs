@@ -33,9 +33,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.flatMini1 = new FlatUI.FlatMini();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.receiver_textbox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Receiver_TextBox = new System.Windows.Forms.TextBox();
+            this.ChatSendButton = new System.Windows.Forms.Button();
+            this.ChatTextBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -70,16 +70,16 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(34, 9);
+            this.label1.Location = new System.Drawing.Point(34, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 21);
+            this.label1.Size = new System.Drawing.Size(94, 21);
             this.label1.TabIndex = 3;
-            this.label1.Text = "chat test UI";
+            this.label1.Text = "Sparkle Chat";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::p2p_client.Properties.Resources.comments_24;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 9);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(24, 24);
             this.pictureBox1.TabIndex = 2;
@@ -98,45 +98,43 @@
             this.flatMini1.Text = "flatMini1";
             this.flatMini1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             // 
-            // richTextBox2
+            // Receiver_TextBox
             // 
-            this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
-            this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox2.ForeColor = System.Drawing.SystemColors.Window;
-            this.richTextBox2.Location = new System.Drawing.Point(4, 290);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(221, 71);
-            this.richTextBox2.TabIndex = 2;
-            this.richTextBox2.Text = "";
+            this.Receiver_TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.Receiver_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Receiver_TextBox.Enabled = false;
+            this.Receiver_TextBox.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.Receiver_TextBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.Receiver_TextBox.Location = new System.Drawing.Point(4, 42);
+            this.Receiver_TextBox.Multiline = true;
+            this.Receiver_TextBox.Name = "Receiver_TextBox";
+            this.Receiver_TextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.Receiver_TextBox.Size = new System.Drawing.Size(277, 243);
+            this.Receiver_TextBox.TabIndex = 4;
             // 
-            // receiver_textbox
+            // ChatSendButton
             // 
-            this.receiver_textbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
-            this.receiver_textbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.receiver_textbox.Enabled = false;
-            this.receiver_textbox.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.receiver_textbox.ForeColor = System.Drawing.SystemColors.Window;
-            this.receiver_textbox.Location = new System.Drawing.Point(4, 42);
-            this.receiver_textbox.Multiline = true;
-            this.receiver_textbox.Name = "receiver_textbox";
-            this.receiver_textbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.receiver_textbox.Size = new System.Drawing.Size(277, 243);
-            this.receiver_textbox.TabIndex = 4;
+            this.ChatSendButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.ChatSendButton.FlatAppearance.BorderSize = 0;
+            this.ChatSendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChatSendButton.Font = new System.Drawing.Font("Segoe UI Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ChatSendButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ChatSendButton.Location = new System.Drawing.Point(231, 290);
+            this.ChatSendButton.Name = "ChatSendButton";
+            this.ChatSendButton.Size = new System.Drawing.Size(50, 71);
+            this.ChatSendButton.TabIndex = 5;
+            this.ChatSendButton.Text = "SEND";
+            this.ChatSendButton.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // ChatTextBox
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(231, 290);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 71);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "SEND";
-            this.button1.UseVisualStyleBackColor = false;
+            this.ChatTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.ChatTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ChatTextBox.Location = new System.Drawing.Point(4, 290);
+            this.ChatTextBox.Multiline = true;
+            this.ChatTextBox.Name = "ChatTextBox";
+            this.ChatTextBox.Size = new System.Drawing.Size(221, 71);
+            this.ChatTextBox.TabIndex = 6;
             // 
             // chat2
             // 
@@ -144,9 +142,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(284, 366);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.receiver_textbox);
-            this.Controls.Add(this.richTextBox2);
+            this.Controls.Add(this.ChatTextBox);
+            this.Controls.Add(this.ChatSendButton);
+            this.Controls.Add(this.Receiver_TextBox);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "chat2";
@@ -164,12 +162,12 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RichTextBox richTextBox2;
         private FlatUI.FlatMini flatMini1;
-        private System.Windows.Forms.TextBox receiver_textbox;
+        private System.Windows.Forms.TextBox Receiver_TextBox;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ChatSendButton;
         private System.Windows.Forms.Label label1;
         private FlatUI.FlatClose flatClose1;
+        private System.Windows.Forms.TextBox ChatTextBox;
     }
 }

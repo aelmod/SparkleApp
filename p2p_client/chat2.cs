@@ -5,7 +5,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using p2p_client.Properties;
 
 namespace p2p_client
 {
@@ -13,6 +12,10 @@ namespace p2p_client
     {
         private int x; //переміщення за панель [START]
         private int y;
+
+        private static IPAddress remoteIPAddress;
+        private static int remotePort;
+        private static int localPort;
 
         public chat2()
         {
@@ -49,6 +52,7 @@ namespace p2p_client
 
         private void chat2_Load(object sender, EventArgs e)
         {
+            
         }
 
      }

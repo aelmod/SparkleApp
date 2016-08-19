@@ -16,6 +16,8 @@ namespace p2p_client
 
         public static string passtext;
 
+        public static bool allowshowdisplay;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -294,7 +296,6 @@ namespace p2p_client
                 flatLabel1.Visible = false;
             }
         }
-
         private void chat_picture_Click(object sender, EventArgs e)
         {
             IPAddress address;
@@ -311,10 +312,12 @@ namespace p2p_client
             //передача ІР в чат
             passtext = EnterIPTextBox.Text;
 
+            allowshowdisplay = true;
 
             //for debug
             //chat f = new chat();
             //f.Show(); 
         }
+
     }
 }

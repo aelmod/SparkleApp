@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.flatClose1 = new FlatUI.FlatClose();
             this.flatMini1 = new FlatUI.FlatMini();
@@ -48,16 +49,15 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.chat_picture = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.debug = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chat_picture)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debug)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -71,6 +71,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(477, 38);
             this.panel1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::p2p_client.Properties.Resources.twilight_sparkle_ico_32x30;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 30);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // label3
             // 
@@ -267,7 +276,7 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.pictureBox3);
             this.panel2.Controls.Add(this.chat_picture);
-            this.panel2.Controls.Add(this.pictureBox4);
+            this.panel2.Controls.Add(this.debug);
             this.panel2.Location = new System.Drawing.Point(449, 38);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(28, 328);
@@ -275,6 +284,7 @@
             // 
             // pictureBox3
             // 
+            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = global::p2p_client.Properties.Resources.settings_24;
             this.pictureBox3.Location = new System.Drawing.Point(1, 142);
             this.pictureBox3.Name = "pictureBox3";
@@ -285,6 +295,7 @@
             // 
             // chat_picture
             // 
+            this.chat_picture.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chat_picture.Image = global::p2p_client.Properties.Resources.comments_24;
             this.chat_picture.Location = new System.Drawing.Point(1, 60);
             this.chat_picture.Name = "chat_picture";
@@ -293,23 +304,16 @@
             this.chat_picture.TabStop = false;
             this.chat_picture.Click += new System.EventHandler(this.chat_picture_Click);
             // 
-            // pictureBox4
+            // debug
             // 
-            this.pictureBox4.Image = global::p2p_client.Properties.Resources.code_24;
-            this.pictureBox4.Location = new System.Drawing.Point(1, 230);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox4.TabIndex = 17;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::p2p_client.Properties.Resources.twilight_sparkle_ico_32x30;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 30);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
+            this.debug.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.debug.Image = global::p2p_client.Properties.Resources.code_24;
+            this.debug.Location = new System.Drawing.Point(1, 230);
+            this.debug.Name = "debug";
+            this.debug.Size = new System.Drawing.Size(24, 24);
+            this.debug.TabIndex = 17;
+            this.debug.TabStop = false;
+            this.debug.Click += new System.EventHandler(this.debug_Click);
             // 
             // UDP_P2P
             // 
@@ -331,6 +335,7 @@
             this.Load += new System.EventHandler(this.UDP_P2P_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -338,8 +343,7 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chat_picture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debug)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,6 +372,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox chat_picture;
-        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox debug;
     }
 }
