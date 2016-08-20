@@ -18,6 +18,8 @@ namespace p2p_client
 
         public static bool allowshowdisplay;
 
+        NATUPNPLib.UPnPNATClass upnpnat = new NATUPNPLib.UPnPNATClass();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -117,6 +119,7 @@ namespace p2p_client
             try
             {
                 await client.ConnectAsync(address, PORT);
+
             }
             catch
             {
@@ -175,6 +178,16 @@ namespace p2p_client
             // Listen
             var listener = TcpListener.Create(PORT);
             listener.Start();
+
+
+            //var host = Dns.GetHostName();
+            //IPAddress ip = Dns.GetHostEntry(host).AddressList[2];
+            IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList,a => a.AddressFamily == AddressFamily.InterNetwork);
+
+            // після відкриття порта, пробрасую через роутер
+            NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
+            mappings.Add(PORT, "TCP", PORT, ipv4Address.ToString(), true, "App Open Port");
+
             ReceiverTextBox.Text = "Waiting...";
             var client = await listener.AcceptTcpClientAsync();
             var ns = client.GetStream();

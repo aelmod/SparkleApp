@@ -83,12 +83,13 @@ namespace p2p_client
             udpClient = new UdpClient(MainWindow.passtext, charport);
             udpClient.EnableBroadcast = true;
 
-            var host = Dns.GetHostName();
-            IPAddress ip = Dns.GetHostEntry(host).AddressList[1];
+            //var host = Dns.GetHostName();
+            //IPAddress ip = Dns.GetHostEntry(host).AddressList[1];
+            IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
 
             // після відкриття порта, пробрасую через роутер
             NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
-            mappings.Add(charport, "UDP", charport, ip.ToString(), true, "Chat Open Port");
+            mappings.Add(charport, "UDP", charport, ipv4Address.ToString(), true, "Chat Open Port");
         }
 
         private void InitializeReceiver()
