@@ -13,10 +13,6 @@ namespace p2p_client
         private int x; //переміщення за панель [START]
         private int y;
 
-        private static IPAddress remoteIPAddress;
-        private static int remotePort;
-        private static int localPort;
-
         public chat2()
         {
             InitializeComponent();

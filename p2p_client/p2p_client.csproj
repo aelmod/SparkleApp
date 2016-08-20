@@ -82,11 +82,11 @@
     <Compile Include="settings.Designer.cs">
       <DependentUpon>settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="UDP_P2P.cs">
+    <Compile Include="UDPP2P.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UDP_P2P.Designer.cs">
-      <DependentUpon>UDP_P2P.cs</DependentUpon>
+    <Compile Include="UDPP2P.Designer.cs">
+      <DependentUpon>UDPP2P.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="chat.resx">
       <DependentUpon>chat.cs</DependentUpon>
@@ -110,8 +110,8 @@
     <EmbeddedResource Include="settings.resx">
       <DependentUpon>settings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UDP_P2P.resx">
-      <DependentUpon>UDP_P2P.cs</DependentUpon>
+    <EmbeddedResource Include="UDPP2P.resx">
+      <DependentUpon>UDPP2P.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -165,6 +165,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\save-file-option_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="NATUPNPLib">
+      <Guid>{1C565858-F302-471E-B409-F180AA4ABEC6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

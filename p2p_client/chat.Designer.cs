@@ -55,8 +55,7 @@
             // 
             this.Receiver_TextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
             this.Receiver_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Receiver_TextBox.Enabled = false;
-            this.Receiver_TextBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.Receiver_TextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.Receiver_TextBox.Location = new System.Drawing.Point(3, 54);
             this.Receiver_TextBox.Multiline = true;
             this.Receiver_TextBox.Name = "Receiver_TextBox";
@@ -87,6 +86,7 @@
             this.button1.TabStop = false;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // textBox1
             // 
@@ -95,6 +95,7 @@
             this.textBox1.Size = new System.Drawing.Size(100, 29);
             this.textBox1.TabIndex = 6;
             this.textBox1.TabStop = false;
+            this.textBox1.Visible = false;
             // 
             // formSkin1
             // 

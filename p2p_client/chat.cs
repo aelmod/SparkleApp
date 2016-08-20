@@ -9,28 +9,31 @@ namespace p2p_client
 {
     public partial class chat : Form
     {
-        private const int charport = 54545;
+        private const int charport = 54545/*54236*//*43585*/;
         //private readonly string userName = broadcastAddress;
-        private const string broadcastAddress = "127.0.0.1";
-
+        //private string _broadcastAddress = "127.0.0.1";
         public bool allowshowdisplay = MainWindow.allowshowdisplay;
 
         //private readonly MainWindow otherForm = new MainWindow();
         private UdpClient receivingClient;
         private Thread receivingThread;
-        private UdpClient sendingClient;
+        private UdpClient udpClient;
+
+        NATUPNPLib.UPnPNATClass upnpnat = new NATUPNPLib.UPnPNATClass();
 
         public chat()
         {
             InitializeComponent();
             //chat
             ChatSendButton.Click += ChatSendButton_Click;
+            InitializeSender();
             InitializeReceiver();
 
             //enter send
             ChatTextBox.KeyDown += ChatTextBox_KeyDown;
 
             button1.MouseClick += button1_MouseClick;
+
         }
 
 
@@ -68,8 +71,6 @@ namespace p2p_client
             //sendingClient.Connect(MainWindow.passtext, charport);
 
 
-
-            sendingClient = new UdpClient(broadcastAddress, charport);
             //IPAddress broadcastAddress;
             //IPAddress.TryParse(textBox1.Text, out broadcastAddress);
             //try
@@ -79,8 +80,15 @@ namespace p2p_client
             //catch
             //{
             //}
-            sendingClient.EnableBroadcast = true;
+            udpClient = new UdpClient(MainWindow.passtext, charport);
+            udpClient.EnableBroadcast = true;
 
+            var host = Dns.GetHostName();
+            IPAddress ip = Dns.GetHostEntry(host).AddressList[1];
+
+            // після відкриття порта, пробрасую через роутер
+            NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
+            mappings.Add(charport, "UDP", charport, ip.ToString(), true, "Chat Open Port");
         }
 
         private void InitializeReceiver()
@@ -141,18 +149,20 @@ namespace p2p_client
 
         private void ChatSendButton_Click(object sender, EventArgs e)
         {
-            InitializeSender();
+            //InitializeSender();
 
             ChatTextBox.Text = ChatTextBox.Text.TrimEnd();
             var userName = MainWindow.passtext;
             if (!string.IsNullOrEmpty(ChatTextBox.Text))
             {
                 var toSend = userName + ":" + Environment.NewLine + ChatTextBox.Text;
+                var yousend = "You" + ":" + Environment.NewLine + ChatTextBox.Text;
                 var data = Encoding.UTF8.GetBytes(toSend);
-                sendingClient.Send(data, data.Length);
+                udpClient.Send(data, data.Length);
                 ChatTextBox.Text = "";
-            }
 
+                Receiver_TextBox.Text += yousend + Environment.NewLine;
+            }
             ChatTextBox.Focus();
         }
 

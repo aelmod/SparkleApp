@@ -273,7 +273,7 @@ namespace p2p_client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var f = new UDP_P2P();
+            var f = new UDPP2P();
             f.Show();
         }
 

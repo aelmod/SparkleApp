@@ -5,14 +5,14 @@ using System.Windows.Forms;
 
 namespace p2p_client
 {
-    public partial class UDP_P2P : Form
+    public partial class UDPP2P : Form
     {
         //private static readonly object locker = new object();
 
         private int x; //переміщення за панель [START]
         private int y;
 
-        public UDP_P2P()
+        public UDPP2P()
         {
             InitializeComponent();
 

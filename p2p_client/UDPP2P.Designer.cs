@@ -1,6 +1,6 @@
 ﻿namespace p2p_client
 {
-    partial class UDP_P2P
+    partial class UDPP2P
     {
         /// <summary>
         /// Required designer variable.
