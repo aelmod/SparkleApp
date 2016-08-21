@@ -74,7 +74,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::p2p_client.Properties.Resources.twilight_sparkle_ico_32x30;
+            this.pictureBox1.Image = global::SparkleApp.Properties.Resources.twilight_sparkle_ico_32x30;
             this.pictureBox1.Location = new System.Drawing.Point(3, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 30);
@@ -285,7 +285,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox3.Image = global::p2p_client.Properties.Resources.settings_24;
+            this.pictureBox3.Image = global::SparkleApp.Properties.Resources.settings_24;
             this.pictureBox3.Location = new System.Drawing.Point(1, 142);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(24, 24);
@@ -296,7 +296,7 @@
             // chat_picture
             // 
             this.chat_picture.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chat_picture.Image = global::p2p_client.Properties.Resources.comments_24;
+            this.chat_picture.Image = global::SparkleApp.Properties.Resources.comments_24;
             this.chat_picture.Location = new System.Drawing.Point(1, 60);
             this.chat_picture.Name = "chat_picture";
             this.chat_picture.Size = new System.Drawing.Size(24, 24);
@@ -307,7 +307,7 @@
             // debug
             // 
             this.debug.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.debug.Image = global::p2p_client.Properties.Resources.code_24;
+            this.debug.Image = global::SparkleApp.Properties.Resources.code_24;
             this.debug.Location = new System.Drawing.Point(1, 230);
             this.debug.Name = "debug";
             this.debug.Size = new System.Drawing.Size(24, 24);

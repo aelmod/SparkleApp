@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "p2p_client", "p2p_client\p2p_client.csproj", "{B8E8DA52-11B8-4055-A1A3-1AA28FC37453}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkleApp", "p2p_client\SparkleApp.csproj", "{B8E8DA52-11B8-4055-A1A3-1AA28FC37453}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FC508337-0212-4F3B-88FE-5C9FF09F4D47} = {FC508337-0212-4F3B-88FE-5C9FF09F4D47}
 	EndProjectSection

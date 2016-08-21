@@ -78,7 +78,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::p2p_client.Properties.Resources.comments_24;
+            this.pictureBox1.Image = global::SparkleApp.Properties.Resources.comments_24;
             this.pictureBox1.Location = new System.Drawing.Point(3, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(24, 24);

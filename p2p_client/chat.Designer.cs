@@ -1,4 +1,4 @@
-﻿namespace p2p_client
+﻿namespace SparkleApp
 {
     partial class Chat
     {

@@ -6,8 +6,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using p2p_client;
 
-namespace p2p_client
+namespace SparkleApp
 {
     public partial class MainWindow : Form
     {

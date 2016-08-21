@@ -1,4 +1,4 @@
-﻿namespace p2p_client
+﻿namespace SparkleApp
 {
     partial class MainWindow
     {
@@ -98,7 +98,7 @@
             // 
             // settings_picture
             // 
-            this.settings_picture.Image = global::p2p_client.Properties.Resources.cog_wheel_silhouette;
+            this.settings_picture.Image = global::SparkleApp.Properties.Resources.cog_wheel_silhouette;
             this.settings_picture.Location = new System.Drawing.Point(1, 79);
             this.settings_picture.Name = "settings_picture";
             this.settings_picture.Size = new System.Drawing.Size(32, 32);
@@ -119,7 +119,7 @@
             // debug_picture
             // 
             this.debug_picture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
-            this.debug_picture.Image = global::p2p_client.Properties.Resources.code;
+            this.debug_picture.Image = global::SparkleApp.Properties.Resources.code;
             this.debug_picture.Location = new System.Drawing.Point(1, 41);
             this.debug_picture.Name = "debug_picture";
             this.debug_picture.Size = new System.Drawing.Size(32, 32);

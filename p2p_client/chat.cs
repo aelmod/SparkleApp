@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace p2p_client
+namespace SparkleApp
 {
     public partial class Chat : Form
     {

@@ -63,7 +63,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox3.Image = global::p2p_client.Properties.Resources.default_24x24;
+            this.pictureBox3.Image = global::SparkleApp.Properties.Resources.default_24x24;
             this.pictureBox3.Location = new System.Drawing.Point(1, 217);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(24, 24);
@@ -95,7 +95,7 @@
             // chat_picture
             // 
             this.chat_picture.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chat_picture.Image = global::p2p_client.Properties.Resources.save_file_option_24x24;
+            this.chat_picture.Image = global::SparkleApp.Properties.Resources.save_file_option_24x24;
             this.chat_picture.Location = new System.Drawing.Point(451, 121);
             this.chat_picture.Name = "chat_picture";
             this.chat_picture.Size = new System.Drawing.Size(24, 24);
