@@ -315,6 +315,7 @@
             this.flatClose1.TabIndex = 1;
             this.flatClose1.Text = "flatClose1";
             this.flatClose1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.flatClose1.Click += new System.EventHandler(this.flatClose1_Click);
             // 
             // flatMini1
             // 

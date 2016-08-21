@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -168,6 +169,33 @@ namespace p2p_client
             ResetControls();
         }
 
+        public static IPAddress GetLocalAdress()
+        {
+            var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+
+            foreach (NetworkInterface network in networkInterfaces)
+            {
+
+                IPInterfaceProperties properties = network.GetIPProperties();
+
+                if (properties.GatewayAddresses.Count == 0)//вся магия вот в этой строке
+                    continue;
+
+                foreach (UnicastIPAddressInformation address in properties.UnicastAddresses)
+                {
+
+                    if (address.Address.AddressFamily != AddressFamily.InterNetwork)
+                        continue;
+
+                    if (IPAddress.IsLoopback(address.Address))
+                        continue;
+
+                    return address.Address;
+                }
+            }
+            return default(IPAddress);
+        }
+
         //прійом
         protected override async void OnShown(EventArgs e)
         {
@@ -183,7 +211,7 @@ namespace p2p_client
                 throw;
             }
             // Listen
-            var listener = TcpListener.Create(Port);
+            TcpListener listener = TcpListener.Create(Port);
             listener.Start();
 
 
@@ -191,11 +219,12 @@ namespace p2p_client
             //IPAddress ip = Dns.GetHostEntry(host).AddressList[2];
             try
             {
-                IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
-                textBox1.Text = ipv4Address.ToString();
+                //IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
+                //var ipv4Address = new IPEndPoint(GetLocalAdress(), 0);
+                textBox1.Text = GetLocalAdress().ToString();
                 // після відкриття порта пробрасую його через роутер
                 NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
-                mappings.Add(Port, "TCP", Port, ipv4Address.ToString(), true, "SparkleApp TCP Port");
+                mappings.Add(Port, "TCP", Port, GetLocalAdress().ToString(), true, "SparkleApp TCP Port");
             }
             catch (Exception z)
             {
@@ -353,5 +382,13 @@ namespace p2p_client
             //f.Show(); 
         }
 
+        private void flatClose1_Click(object sender, EventArgs e)
+        {
+            NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
+            mappings.Remove(Port, "TCP");
+            Chat.Upnpclose();
+
+            Environment.Exit(0);
+        }
     }
 }

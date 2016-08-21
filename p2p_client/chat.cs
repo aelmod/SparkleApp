@@ -19,7 +19,7 @@ namespace p2p_client
         private Thread _receivingThread;
         private UdpClient _udpClient;
 
-        NATUPNPLib.UPnPNATClass upnpnat = new NATUPNPLib.UPnPNATClass();
+        static NATUPNPLib.UPnPNATClass upnpnat = new NATUPNPLib.UPnPNATClass();
 
         public Chat()
         {
@@ -87,11 +87,11 @@ namespace p2p_client
             //IPAddress ip = Dns.GetHostEntry(host).AddressList[1];
             try
             {
-                IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
+                //IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
 
                 // після відкриття порта пробрасую його через роутер
                 NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
-                mappings.Add(Charport, "UDP", Charport, ipv4Address.ToString(), true, "SparkleChat UDP Port");
+                mappings.Add(Charport, "UDP", Charport, MainWindow.GetLocalAdress().ToString(), true, "SparkleChat UDP Port");
             }
             catch (Exception z)
             {
@@ -200,5 +200,11 @@ namespace p2p_client
         }
 
         private delegate void AddMessage(string message);
+
+        public static void Upnpclose()
+        {
+            NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
+            mappings.Remove(Charport, "UDP");
+        }
     }
 }

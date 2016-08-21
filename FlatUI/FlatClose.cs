@@ -65,11 +65,11 @@ namespace FlatUI
             Invalidate();
         }
 
-        protected override void OnClick(EventArgs e)
-        {
-            base.OnClick(e);
-            Environment.Exit(0);
-        }
+        //protected override void OnClick(EventArgs e)
+        //{
+        //    base.OnClick(e);
+        //    Environment.Exit(0);
+        //}
 
         protected override void OnResize(EventArgs e)
         {

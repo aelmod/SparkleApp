@@ -16,7 +16,7 @@ namespace p2p_client
     {
         private int x; //переміщення за панель [START]
         private int y;
-
+        NATUPNPLib.UPnPNATClass upnpnat = new NATUPNPLib.UPnPNATClass();
         public settings()
         {
             InitializeComponent();
