@@ -11,12 +11,12 @@ namespace p2p_client
     public partial class MainWindow : Form
     {
         //p2p
-        private const int PORT = 1723;
-        private static readonly object locker = new object();
+        private const int Port = 1723;
+        private static readonly object Locker = new object();
 
-        public static string passtext;
+        public static string Passtext;
 
-        public static bool allowshowdisplay;
+        public static bool Allowshowdisplay;
 
         NATUPNPLib.UPnPNATClass upnpnat = new NATUPNPLib.UPnPNATClass();
 
@@ -28,13 +28,9 @@ namespace p2p_client
             FileReceiverTextBox.DragDrop += FileReceiverTextBox_DragDrop;
 
             FileReceiverTextBox.Click += FileReceiverTextBox_Click;
-
-            //ip
-            var addrs = IPAddress.Parse(new WebClient().DownloadString("https://api.ipify.org/"));
-            YourIPTextBox.Text = addrs.ToString();
         }
 
-        private void resetControls()
+        private void ResetControls()
         {
             FileReceiverTextBox.Enabled = SendFileButton.Enabled = true;
             SendFileButton.Text = "Send";
@@ -98,7 +94,7 @@ namespace p2p_client
             if (!IPAddress.TryParse(EnterIPTextBox.Text, out address))
             {
                 MessageBox.Show("Error with IP Address");
-                resetControls();
+                ResetControls();
                 return;
             }
             try
@@ -109,7 +105,7 @@ namespace p2p_client
             catch
             {
                 MessageBox.Show("Error opening file");
-                resetControls();
+                ResetControls();
                 return;
             }
 
@@ -118,13 +114,13 @@ namespace p2p_client
             var client = new TcpClient();
             try
             {
-                await client.ConnectAsync(address, PORT);
+                await client.ConnectAsync(address, Port);
 
             }
             catch
             {
                 MessageBox.Show("Error connecting to destination");
-                resetControls();
+                ResetControls();
                 return;
             }
             var ns = client.GetStream();
@@ -148,7 +144,7 @@ namespace p2p_client
                 if (permission[0] != 1)
                 {
                     MessageBox.Show("Permission denied");
-                    resetControls();
+                    ResetControls();
                     return;
                 }
             }
@@ -169,31 +165,57 @@ namespace p2p_client
             fileStream.Dispose();
             client.Close();
             MessageBox.Show("Sending complete!");
-            resetControls();
+            ResetControls();
         }
 
         //прійом
         protected override async void OnShown(EventArgs e)
         {
+            try //your ip in YourIPTextBox
+            {
+                //ip
+                IPAddress addrs = IPAddress.Parse(new WebClient().DownloadString("https://api.ipify.org/"));
+                YourIPTextBox.Text = addrs.ToString();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка соеденения с https://api.ipify.org/ . Пожалуйста проверьте подключение к интернету");
+                throw;
+            }
             // Listen
-            var listener = TcpListener.Create(PORT);
+            var listener = TcpListener.Create(Port);
             listener.Start();
 
 
             //var host = Dns.GetHostName();
             //IPAddress ip = Dns.GetHostEntry(host).AddressList[2];
-            IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList,a => a.AddressFamily == AddressFamily.InterNetwork);
+            try
+            {
+                IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
+                textBox1.Text = ipv4Address.ToString();
+                // після відкриття порта пробрасую його через роутер
+                NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
+                mappings.Add(Port, "TCP", Port, ipv4Address.ToString(), true, "SparkleApp TCP Port");
+            }
+            catch (Exception z)
+            {
+                MessageBox.Show(z.ToString());
+                return;
+            }
 
-            // після відкриття порта, пробрасую через роутер
-            NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
-            mappings.Add(PORT, "TCP", PORT, ipv4Address.ToString(), true, "App Open Port");
+            //ip array
+            //IPAddress[] ipv4Addresses = Array.FindAll(
+            //Dns.GetHostEntry(string.Empty).AddressList,
+            //a => a.AddressFamily == AddressFamily.InterNetwork);
+            //or use Array.Find or Array.FindLast if you just want one.
+
 
             ReceiverTextBox.Text = "Waiting...";
-            var client = await listener.AcceptTcpClientAsync();
-            var ns = client.GetStream();
+            TcpClient client = await listener.AcceptTcpClientAsync();
+            NetworkStream ns = client.GetStream();
 
             // Get file info
-            long fileLength;
+            float fileLength;
             string fileName;
             {
                 byte[] fileNameBytes;
@@ -210,26 +232,25 @@ namespace p2p_client
             }
 
             // Get permission
-            if (
-                MessageBox.Show(
-                    string.Format("Requesting permission to receive file:\r\n\r\n{0}\r\n{1} bytes long", fileName,
-                        fileLength), "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (MessageBox.Show($"Requesting permission to receive file:\r\n\r\n{fileName}\r\n{fileLength/1024/1024:N2} Megabytes long", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return;
             }
 
-            // виставляєм куда засейвитьт файл (но пока воно тіки сохраня в папку)
-            var sfd = new SaveFileDialog();
-            sfd.CreatePrompt = false;
-            sfd.OverwritePrompt = true;
-            sfd.FileName = fileName;
+            // виставляєм куда засейвитьт файл (но пока воно тіки сохраня в папку рядом)
+            var sfd = new SaveFileDialog
+            {
+                CreatePrompt = false,
+                OverwritePrompt = true,
+                FileName = fileName
+            };
             //if (sfd.ShowDialog() != DialogResult.OK)
             //{
             //    ns.WriteByte(0); // Permission denied
             //    return;
             //}
             ns.WriteByte(1); // Permission grantedd
-            var fileStream = File.Open(sfd.FileName, FileMode.Create);
+            FileStream fileStream = File.Open(sfd.FileName, FileMode.Create);
 
             // Receive
             ReceiverTextBox.Text = "Receiving...";
@@ -252,7 +273,7 @@ namespace p2p_client
             //рестарт після прийома файла (замінить!)
             if (!client.Connected)
             {
-                Application.Restart();
+                ResetControls();
             }
         }
 
@@ -279,8 +300,8 @@ namespace p2p_client
 
         public static void chat_open()
         {
-            lock (locker)
-                Application.Run(new chat());
+            lock (Locker)
+                Application.Run(new Chat());
         }
 
 
@@ -323,9 +344,9 @@ namespace p2p_client
                 t.Start();
             }
             //передача ІР в чат
-            passtext = EnterIPTextBox.Text;
+            Passtext = EnterIPTextBox.Text;
 
-            allowshowdisplay = true;
+            Allowshowdisplay = true;
 
             //for debug
             //chat f = new chat();

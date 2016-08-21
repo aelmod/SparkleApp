@@ -1,6 +1,6 @@
 ﻿namespace p2p_client
 {
-    partial class chat
+    partial class Chat
     {
         /// <summary>
         /// Required designer variable.
@@ -126,7 +126,7 @@
             this.Controls.Add(this.formSkin1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(1135, 353);
-            this.Name = "chat";
+            this.Name = "Chat";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "chat";
             this.TransparencyKey = System.Drawing.Color.Fuchsia;

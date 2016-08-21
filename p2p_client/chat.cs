@@ -7,21 +7,21 @@ using System.Windows.Forms;
 
 namespace p2p_client
 {
-    public partial class chat : Form
+    public partial class Chat : Form
     {
-        private const int charport = 54545/*54236*//*43585*/;
+        private const int Charport = 54545/*54236*//*43585*/;
         //private readonly string userName = broadcastAddress;
         //private string _broadcastAddress = "127.0.0.1";
-        public bool allowshowdisplay = MainWindow.allowshowdisplay;
+        public bool Allowshowdisplay = MainWindow.Allowshowdisplay;
 
         //private readonly MainWindow otherForm = new MainWindow();
-        private UdpClient receivingClient;
-        private Thread receivingThread;
-        private UdpClient udpClient;
+        private UdpClient _receivingClient;
+        private Thread _receivingThread;
+        private UdpClient _udpClient;
 
         NATUPNPLib.UPnPNATClass upnpnat = new NATUPNPLib.UPnPNATClass();
 
-        public chat()
+        public Chat()
         {
             InitializeComponent();
             //chat
@@ -40,14 +40,14 @@ namespace p2p_client
         //сверталка
         protected override void SetVisibleCore(bool value)
         {
-            base.SetVisibleCore(allowshowdisplay ? value : allowshowdisplay);
+            base.SetVisibleCore(Allowshowdisplay ? value : Allowshowdisplay);
         }
 
         private void button1_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                allowshowdisplay = true;
+                Allowshowdisplay = true;
                 Visible = !Visible;
             }
         }
@@ -55,7 +55,7 @@ namespace p2p_client
         private void chat_Load(object sender, EventArgs e)
         {
             //var broadcastAddress = MainWindow.passtext;
-            textBox1.Text = MainWindow.passtext;
+            textBox1.Text = MainWindow.Passtext;
         }
 
         private void InitializeSender()
@@ -80,26 +80,34 @@ namespace p2p_client
             //catch
             //{
             //}
-            udpClient = new UdpClient(MainWindow.passtext, charport);
-            udpClient.EnableBroadcast = true;
+            _udpClient = new UdpClient(MainWindow.Passtext, Charport);
+            _udpClient.EnableBroadcast = true;
 
             //var host = Dns.GetHostName();
             //IPAddress ip = Dns.GetHostEntry(host).AddressList[1];
-            IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
+            try
+            {
+                IPAddress ipv4Address = Array.FindLast(Dns.GetHostEntry(string.Empty).AddressList, a => a.AddressFamily == AddressFamily.InterNetwork);
 
-            // після відкриття порта, пробрасую через роутер
-            NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
-            mappings.Add(charport, "UDP", charport, ipv4Address.ToString(), true, "Chat Open Port");
+                // після відкриття порта пробрасую його через роутер
+                NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
+                mappings.Add(Charport, "UDP", Charport, ipv4Address.ToString(), true, "SparkleChat UDP Port");
+            }
+            catch (Exception z)
+            {
+                MessageBox.Show(z.ToString());
+                throw;
+            }
         }
 
         private void InitializeReceiver()
         {
-            receivingClient = new UdpClient(charport);
+            _receivingClient = new UdpClient(Charport);
 
             ThreadStart start = Receiver;
-            receivingThread = new Thread(start);
-            receivingThread.IsBackground = true;
-            receivingThread.Start();
+            _receivingThread = new Thread(start);
+            _receivingThread.IsBackground = true;
+            _receivingThread.Start();
         }
 
         /*private void GetOtherFormTextBox()
@@ -153,13 +161,13 @@ namespace p2p_client
             //InitializeSender();
 
             ChatTextBox.Text = ChatTextBox.Text.TrimEnd();
-            var userName = MainWindow.passtext;
+            var userName = MainWindow.Passtext;
             if (!string.IsNullOrEmpty(ChatTextBox.Text))
             {
                 var toSend = userName + ":" + Environment.NewLine + ChatTextBox.Text;
                 var yousend = "You" + ":" + Environment.NewLine + ChatTextBox.Text;
                 var data = Encoding.UTF8.GetBytes(toSend);
-                udpClient.Send(data, data.Length);
+                _udpClient.Send(data, data.Length);
                 ChatTextBox.Text = "";
 
                 Receiver_TextBox.Text += yousend + Environment.NewLine;
@@ -169,12 +177,12 @@ namespace p2p_client
 
         private void Receiver()
         {
-            var endPoint = new IPEndPoint(IPAddress.Any, charport);
+            var endPoint = new IPEndPoint(IPAddress.Any, Charport);
             AddMessage messageDelegate = MessageReceived;
 
             while (true)
             {
-                var data = receivingClient.Receive(ref endPoint);
+                var data = _receivingClient.Receive(ref endPoint);
                 var message = Encoding.UTF8.GetString(data);
                 Invoke(messageDelegate, message);
             }
@@ -182,7 +190,7 @@ namespace p2p_client
 
         private void MessageReceived(string message)
         {
-            Receiver_TextBox.Text += message + /*Environment.NewLine + */ Environment.NewLine;
+            Receiver_TextBox.Text += message + /*Environment.NewLine + */Environment.NewLine;
         }
 
         private void Receiver_TextBox_TextChanged(object sender, EventArgs e)
