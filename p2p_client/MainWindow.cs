@@ -20,7 +20,7 @@ namespace SparkleApp
 
         public static bool Allowshowdisplay;
 
-        NATUPNPLib.UPnPNATClass upnpnat = new NATUPNPLib.UPnPNATClass();
+        readonly NATUPNPLib.UPnPNATClass _upnpnat = new NATUPNPLib.UPnPNATClass();
 
         public MainWindow()
         {
@@ -66,12 +66,14 @@ namespace SparkleApp
 
         private void FileReceiverTextBox_Click(object sender, EventArgs e)
         {
-            var ofd = new OpenFileDialog();
-            ofd.CheckFileExists = true;
-            ofd.CheckPathExists = true;
+            var ofd = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                CheckPathExists = true
+            };
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                FileReceiverTextBox.Text = ofd.SafeFileName;
+                FileReceiverTextBox.Text = ofd.FileName/*SafeFileName*/;
             }
         }
 
@@ -224,7 +226,7 @@ namespace SparkleApp
                 //var ipv4Address = new IPEndPoint(GetLocalAdress(), 0);
                 textBox1.Text = GetLocalAdress().ToString();
                 // після відкриття порта пробрасую його через роутер
-                NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
+                NATUPNPLib.IStaticPortMappingCollection mappings = _upnpnat.StaticPortMappingCollection;
                 mappings.Add(Port, "TCP", Port, GetLocalAdress().ToString(), true, "SparkleApp TCP Port");
             }
             catch (Exception z)
@@ -337,7 +339,7 @@ namespace SparkleApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var f = new UDPP2P();
+            var f = new Udpp2P();
             f.Show();
         }
 
@@ -385,10 +387,16 @@ namespace SparkleApp
 
         private void flatClose1_Click(object sender, EventArgs e)
         {
-            NATUPNPLib.IStaticPortMappingCollection mappings = upnpnat.StaticPortMappingCollection;
+            NATUPNPLib.IStaticPortMappingCollection mappings = _upnpnat.StaticPortMappingCollection;
             mappings.Remove(Port, "TCP");
-            Chat.Upnpclose();
-
+            try
+            {
+                Chat.Upnpclose();
+            }
+            catch (Exception)
+            {
+                Environment.Exit(0);
+            }
             Environment.Exit(0);
         }
     }

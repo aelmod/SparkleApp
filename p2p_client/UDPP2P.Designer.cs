@@ -1,6 +1,6 @@
-﻿namespace p2p_client
+﻿namespace SparkleApp
 {
-    partial class UDPP2P
+    partial class Udpp2P
     {
         /// <summary>
         /// Required designer variable.

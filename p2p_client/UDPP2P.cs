@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
-using SparkleApp;
+using p2p_client;
 
-namespace p2p_client
+namespace SparkleApp
 {
-    public partial class UDPP2P : Form
+    public partial class Udpp2P : Form
     {
         //private static readonly object locker = new object();
 
-        private int x; //переміщення за панель [START]
-        private int y;
+        private int _x; //переміщення за панель [START]
+        private int _y;
 
-        public UDPP2P()
+        public Udpp2P()
         {
             InitializeComponent();
 
@@ -30,8 +29,8 @@ namespace p2p_client
         // Нажатие кнопки мышки
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
-            x = e.X;
-            y = e.Y;
+            _x = e.X;
+            _y = e.Y;
         }
 
         // Движение мышки
@@ -39,7 +38,7 @@ namespace p2p_client
         {
             if (e.Button == MouseButtons.Left)
             {
-                Location = new Point(Location.X + (e.X - x), Location.Y + (e.Y - y));
+                Location = new Point(Location.X + (e.X - _x), Location.Y + (e.Y - _y));
             }
         } //переміщення за панель [END]
 
@@ -68,9 +67,11 @@ namespace p2p_client
                     w.Top = Top;
                 };
 
-                _wnd = new chat2();
-                _wnd.Width = 284;
-                _wnd.Height = 366;
+                _wnd = new chat2
+                {
+                    Width = 284,
+                    Height = 366
+                };
                 fn(_wnd);
                 _wnd.Owner = this;
                 _wnd.Show();
@@ -80,13 +81,13 @@ namespace p2p_client
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            settings f = new settings();
+            var f = new settings();
             f.Show();
         }
 
         private void debug_Click(object sender, EventArgs e)
         {
-            MainWindow f = new MainWindow();
+            var f = new MainWindow();
             f.Show();
         }
     }
