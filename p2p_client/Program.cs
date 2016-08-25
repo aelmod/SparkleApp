@@ -15,6 +15,7 @@ namespace p2p_client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
+            Application.EnableVisualStyles();
         }
     }
 }

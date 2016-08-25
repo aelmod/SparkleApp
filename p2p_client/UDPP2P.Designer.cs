@@ -315,7 +315,7 @@
             this.debug.TabStop = false;
             this.debug.Click += new System.EventHandler(this.debug_Click);
             // 
-            // UDP_P2P
+            // Udpp2P
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -328,7 +328,7 @@
             this.Controls.Add(this.panel1);
             this.ForeColor = System.Drawing.SystemColors.Window;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "UDP_P2P";
+            this.Name = "Udpp2P";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UDP_P2P";
             this.TransparencyKey = System.Drawing.Color.Fuchsia;

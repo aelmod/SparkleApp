@@ -6,7 +6,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using p2p_client;
 
 namespace SparkleApp
 {
@@ -35,11 +34,11 @@ namespace SparkleApp
         private void ResetControls()
         {
             FileReceiverTextBox.Enabled = SendFileButton.Enabled = true;
-            SendFileButton.Text = "Send";
+            SendFileButton.Text = @"Send";
             TransmitterProgressBar.Value = 0;
             //TransmitterProgressBar.Style = ProgressBarStyle.Continuous;
 
-            ReceiverTextBox.Text = "Waiting...";
+            ReceiverTextBox.Text = @"Waiting...";
             ReceiverProgressBar.Value = 0;
             //progressBar1.Style = ProgressBarStyle.Continuous;
         }
@@ -84,7 +83,7 @@ namespace SparkleApp
             //TransmitterProgressBar.Style = ProgressBarStyle.Marquee;
 
             // парс ІР і файла
-            SendFileButton.Text = "Preparing...";
+            SendFileButton.Text = @"Preparing...";
             IPAddress address;
             FileInfo file;
             FileStream fileStream;
@@ -97,7 +96,7 @@ namespace SparkleApp
             //}
             if (!IPAddress.TryParse(EnterIPTextBox.Text, out address))
             {
-                MessageBox.Show("Error with IP Address");
+                MessageBox.Show(@"Error with IP Address");
                 ResetControls();
                 return;
             }
@@ -108,13 +107,13 @@ namespace SparkleApp
             }
             catch
             {
-                MessageBox.Show("Error opening file");
+                MessageBox.Show(@"Error opening file");
                 ResetControls();
                 return;
             }
 
             // Connecting
-            SendFileButton.Text = "Connecting...";
+            SendFileButton.Text = @"Connecting...";
             var client = new TcpClient();
             try
             {
@@ -123,14 +122,14 @@ namespace SparkleApp
             }
             catch
             {
-                MessageBox.Show("Error connecting to destination");
+                MessageBox.Show(@"Error connecting to destination");
                 ResetControls();
                 return;
             }
             var ns = client.GetStream();
 
             // Send file info
-            SendFileButton.Text = "Sending file info...";
+            SendFileButton.Text = @"Sending file info...";
             {
                 var fileName = Encoding.ASCII.GetBytes(file.Name);
                 var fileNameLength = BitConverter.GetBytes(fileName.Length);
@@ -141,20 +140,20 @@ namespace SparkleApp
             }
 
             // провєрка прав
-            SendFileButton.Text = "Getting permission...";
+            SendFileButton.Text = @"Getting permission...";
             {
                 var permission = new byte[1];
                 await ns.ReadAsync(permission, 0, 1);
                 if (permission[0] != 1)
                 {
-                    MessageBox.Show("Permission denied");
+                    MessageBox.Show(@"Permission denied");
                     ResetControls();
                     return;
                 }
             }
 
             // отправка
-            SendFileButton.Text = "Sending...";
+            SendFileButton.Text = @"Sending...";
             //progressBar2.Style = ProgressBarStyle.Continuous;
             int read;
             var totalWritten = 0;
@@ -168,7 +167,7 @@ namespace SparkleApp
 
             fileStream.Dispose();
             client.Close();
-            MessageBox.Show("Sending complete!");
+            MessageBox.Show(@"Sending complete!");
             ResetControls();
         }
 
@@ -210,7 +209,7 @@ namespace SparkleApp
             }
             catch (Exception)
             {
-                MessageBox.Show("Ошибка соеденения с https://api.ipify.org/ . Пожалуйста проверьте подключение к интернету");
+                MessageBox.Show(@"Ошибка соеденения с https://api.ipify.org/ . Пожалуйста проверьте подключение к интернету");
                 throw;
             }
             // Listen
@@ -231,8 +230,11 @@ namespace SparkleApp
             }
             catch (Exception z)
             {
-                MessageBox.Show(z.ToString());
-                return;
+                //if (z is NullReferenceException)
+                //{
+                    MessageBox.Show(z.ToString());
+                    return;
+                //}               
             }
 
             //ip array
@@ -242,7 +244,7 @@ namespace SparkleApp
             //or use Array.Find or Array.FindLast if you just want one.
 
 
-            ReceiverTextBox.Text = "Waiting...";
+            ReceiverTextBox.Text = @"Waiting...";
             TcpClient client = await listener.AcceptTcpClientAsync();
             NetworkStream ns = client.GetStream();
 
@@ -264,7 +266,8 @@ namespace SparkleApp
             }
 
             // Get permission
-            if (MessageBox.Show($"Requesting permission to receive file:\r\n\r\n{fileName}\r\n{fileLength/1024/1024:N2} Megabytes long", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (MessageBox.Show($"Requesting permission to receive file:\r\n\r\n{fileName}\r\n{fileLength/1024/1024:N2} " +
+                                $"Megabytes long", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return;
             }
@@ -285,7 +288,7 @@ namespace SparkleApp
             FileStream fileStream = File.Open(sfd.FileName, FileMode.Create);
 
             // Receive
-            ReceiverTextBox.Text = "Receiving...";
+            ReceiverTextBox.Text = @"Receiving...";
             //progressBar1.Style = ProgressBarStyle.Continuous;
             ReceiverProgressBar.Value = 0;
             int read;
@@ -300,7 +303,7 @@ namespace SparkleApp
 
             fileStream.Dispose();
             client.Close();
-            MessageBox.Show("File successfully received");
+            MessageBox.Show(@"File successfully received");
 
             //рестарт після прийома файла (замінить!)
             if (!client.Connected)
@@ -367,7 +370,7 @@ namespace SparkleApp
             IPAddress address;
             if (!IPAddress.TryParse(EnterIPTextBox.Text, out address))
             {
-                MessageBox.Show("Error with IP Address");
+                MessageBox.Show(@"Error with IP Address");
             }
             else
             {

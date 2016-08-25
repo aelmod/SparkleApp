@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // связанные со сборкой.
 
 [assembly: AssemblyTitle("SparkleApp")]
-[assembly: AssemblyDescription("SparkleApp - it P2P file transmitter and chat")]
+[assembly: AssemblyDescription("SparkleApp - is p2p application for file transfer and chatting with encryption")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SparkleApp")]
